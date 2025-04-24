@@ -17,10 +17,15 @@ export function Fade({ show, children, duration = 0.3, key = 'fade', asChild = f
   function Children() {
     if (!isValidElement(children)) return null
 
-    if (asChild && typeof children.type === 'string') {
-      const Comp = motion[children.type as keyof typeof motion]
+    if (asChild && React.isValidElement(children) && typeof children.type === 'string') {
+      const tag = children.type as keyof typeof motion
+      const Comp = motion[tag]
       if (!Comp) return null
-      return <Comp key={key} {...children.props} {...ANIMATE} />
+      return (
+        <Comp key={key} {...children.props} {...ANIMATE[type]}>
+          {children.props.children}
+        </Comp>
+      )
     }
 
     return (
