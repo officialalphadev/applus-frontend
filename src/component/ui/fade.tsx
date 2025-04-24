@@ -22,7 +22,7 @@ export function Fade({ show, children, duration = 0.3, key = 'fade', asChild = f
     if (asChild && isValidElement(children) && typeof children.type === 'string') {
       const Comp = motion[children.type as never]
       if (!Comp) return null
-      return createElement(Comp, { key, ...element.props, ...ANIMATE })
+      return createElement(Comp, { key, ...(element.props ?? {}), ...ANIMATE })
     }
 
     return (

@@ -52,7 +52,7 @@ export function Animate({ children, key = 'animate', type = 'fade', asChild = fa
   if (asChild && isValidElement(children) && typeof children.type === 'string') {
     const Comp = motion[children.type as never]
     if (!Comp) return null
-    return createElement(Comp, { key, ...element.props, ...ANIMATE[type] })
+    return createElement(Comp, { key, ...(element.props ?? {}), ...ANIMATE[type] })
   }
 
   return (
