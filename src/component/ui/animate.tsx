@@ -1,6 +1,6 @@
 'use client'
 
-import { createElement, isValidElement } from 'react'
+import { createElement, isValidElement, ReactElement } from 'react'
 import { motion } from 'framer-motion'
 
 export interface AnimateProps {
@@ -47,10 +47,12 @@ export function Animate({ children, key = 'animate', type = 'fade', asChild = fa
 
   if (!isValidElement(children)) return null
 
+  const element = children as ReactElement
+
   if (asChild && isValidElement(children) && typeof children.type === 'string') {
     const Comp = motion[children.type as never]
     if (!Comp) return null
-    return createElement(Comp, { key, ...children.props, ...ANIMATE[type] })
+    return createElement(Comp, { key, ...element.props, ...ANIMATE[type] })
   }
 
   return (
