@@ -48,14 +48,9 @@ export function Animate({ children, key = 'animate', type = 'fade', asChild = fa
   if (!isValidElement(children)) return null
 
   if (asChild && isValidElement(children) && typeof children.type === 'string') {
-    const tag = children.type as keyof typeof motion
-    const Comp = motion[tag]
+    const Comp = motion[children.type as never]
     if (!Comp) return null
-    return (
-      <Comp key={key} {...children.props} {...ANIMATE[type]}>
-        {children.props.children}
-      </Comp>
-    )
+    return <Comp key={key} {...children.props} {...ANIMATE[type]} />
   }
 
   return (
