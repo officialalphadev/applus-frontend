@@ -17,7 +17,7 @@ export function Fade({ show, children, duration = 0.3, key = 'fade', asChild = f
   function Children() {
     if (!isValidElement(children)) return null
 
-    if (asChild && React.isValidElement(children) && typeof children.type === 'string') {
+    if (asChild && isValidElement(children) && typeof children.type === 'string') {
       const tag = children.type as keyof typeof motion
       const Comp = motion[tag]
       if (!Comp) return null
