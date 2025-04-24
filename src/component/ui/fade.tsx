@@ -1,6 +1,6 @@
 'use client'
 
-import { isValidElement } from 'react'
+import { createElement, isValidElement } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export interface FadeProps {
@@ -16,13 +16,11 @@ export function Fade({ show, children, duration = 0.3, key = 'fade', asChild = f
 
   function Children() {
     if (!isValidElement(children)) return null
-
     if (asChild && isValidElement(children) && typeof children.type === 'string') {
       const Comp = motion[children.type as never]
       if (!Comp) return null
-      return <Comp key={key} {...children.props} {...ANIMATE} />
+      return createElement(Comp, { key, ...children.props, ...ANIMATE })
     }
-
     return (
       <motion.div key={key} {...ANIMATE}>
         {children}
