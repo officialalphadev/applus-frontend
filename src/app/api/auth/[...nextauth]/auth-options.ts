@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
           // Request to login API
           // Example Login with Dummy JSON
           const response = await axios.post<LoginResponse>('https://dummyjson.com/auth/login', {
-            username: credentials.username, // dummyjson uses username instead of email
+            username: credentials.username,
             password: credentials.password,
             expiresInMins: 60
           })

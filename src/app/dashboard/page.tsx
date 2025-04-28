@@ -1,9 +1,6 @@
 'use client'
-// import { getServerSession } from 'next-auth'
-
 import { redirect } from 'next/navigation'
-// import { authOptions } from '../api/auth/[...nextauth]/route'
-import { Card, Header, LogoutButton } from '@/component'
+import { Card, LogoutButton } from '@/component'
 import { useSession } from 'next-auth/react'
 
 export default function DashboardPage() {
@@ -15,7 +12,6 @@ export default function DashboardPage() {
 
   return (
     <div className='flex min-h-screen flex-col'>
-      <Header />
       <main className='container mx-auto flex-1 py-8'>
         <div className='mb-6 flex items-center justify-between'>
           <h1 className='text-3xl font-bold'>Dashboard</h1>

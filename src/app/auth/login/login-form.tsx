@@ -4,18 +4,12 @@ import type React from 'react'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
-// import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input"
-// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Label } from "@/components/ui/label"
-// import { Alert, AlertDescription } from "@/components/ui/alert"
-// import { AlertCircle } from "lucide-react"
 import { Button, Card, Input, Label } from '@/component'
 
 export default function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/'
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
 
   const [username, setUsername] = useState('emilys')
   const [password, setPassword] = useState('emilyspass')

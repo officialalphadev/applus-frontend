@@ -16,6 +16,9 @@ export function Header() {
             <Link href='/dashboard' className='hover:text-primary text-sm font-medium transition-colors'>
               Dashboard
             </Link>
+            <Link href='/products' className='hover:text-primary text-sm font-medium transition-colors'>
+              Products
+            </Link>
           </nav>
         </div>
         <div className='flex items-center gap-4'>
