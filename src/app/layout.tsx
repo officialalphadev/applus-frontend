@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 
-import { ThemeProvider, Toaster } from '@/component'
+import { Toaster } from '@/component'
 
 import '@/style/global.css'
+import { Providers } from './providers'
 
 export const metadata: Metadata = { title: 'Applus', description: 'Applus' }
 
@@ -14,10 +15,10 @@ export default function AppLayout({ children }: Readonly<AppLayoutProps>) {
   return (
     <html lang='id' suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+        <Providers>
           {children}
           <Toaster />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
