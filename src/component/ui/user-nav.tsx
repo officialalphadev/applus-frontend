@@ -1,12 +1,12 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
-import { LogOut, Settings, User } from 'lucide-react'
 import Link from 'next/link'
-import { signOut } from 'next-auth/react'
-import { Button } from './button'
+import { useSession, signOut } from 'next-auth/react'
+import { LogOut, Settings, User } from 'lucide-react'
+
 import { DropdownMenu } from './dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from './avatar'
+import { Avatar } from './avatar'
+import { Button } from './button'
 
 export function UserNav() {
   const { data: session } = useSession()
@@ -31,9 +31,9 @@ export function UserNav() {
     <DropdownMenu>
       <DropdownMenu.Trigger asChild>
         <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-          <Avatar className='h-8 w-8'>
-            <AvatarImage src={session.user.image || ''} alt={session.user.name || 'User'} />
-            <AvatarFallback>{userInitials}</AvatarFallback>
+          <Avatar className='size-8'>
+            <Avatar.Image src={session.user.image ?? ''} alt={session.user.name ?? 'User'} />
+            <Avatar.Fallback>{userInitials}</Avatar.Fallback>
           </Avatar>
         </Button>
       </DropdownMenu.Trigger>

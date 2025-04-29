@@ -1,14 +1,14 @@
 'use client'
+
 import { redirect } from 'next/navigation'
-import { Card, LogoutButton } from '@/component'
 import { useSession } from 'next-auth/react'
+
+import { Card, LogoutButton } from '@/component'
 
 export default function DashboardPage() {
   const { data: session } = useSession()
 
-  if (!session) {
-    redirect('/auth/login?callbackUrl=/dashboard')
-  }
+  if (!session) redirect('/auth/login?callbackUrl=/dashboard')
 
   return (
     <div className='flex min-h-screen flex-col'>

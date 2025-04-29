@@ -2,12 +2,11 @@
 
 import { X } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Provider, Viewport, Root, Action, Close, Title, Description, ToastDescriptionProps } from '@radix-ui/react-toast'
-import { ToastViewportProps, ToastActionProps, ToastCloseProps, ToastTitleProps, ToastProps } from '@radix-ui/react-toast'
+import { Provider, Viewport, Root, Action, Close, Title, Description } from '@radix-ui/react-toast'
 
 import { cn } from '@/lib'
 
-export type ToastActionElement = React.ReactElement<typeof ToastAction>
+export type ToastActionElement = React.ReactElement<typeof Action>
 
 export const toastVariants = cva(
   cn(
@@ -29,12 +28,13 @@ export const toastVariants = cva(
   }
 )
 
-export function Toast({ className, variant, ...props }: ToastProps & VariantProps<typeof toastVariants>) {
-  return <Root className={cn(toastVariants({ variant }), className)} {...props} />
-}
 Toast.Provider = Provider
 
-function ToastViewport({ className, ...props }: ToastViewportProps) {
+export function Toast({ className, variant, ...props }: React.ComponentProps<typeof Root> & VariantProps<typeof toastVariants>) {
+  return <Root className={cn(toastVariants({ variant }), className)} {...props} />
+}
+
+Toast.Viewport = function ToastViewport({ className, ...props }: React.ComponentProps<typeof Viewport>) {
   return (
     <Viewport
       className={cn(
@@ -46,9 +46,8 @@ function ToastViewport({ className, ...props }: ToastViewportProps) {
     />
   )
 }
-Toast.Viewport = ToastViewport
 
-function ToastAction({ className, ...props }: ToastActionProps) {
+Toast.Action = function ToastAction({ className, ...props }: React.ComponentProps<typeof Action>) {
   return (
     <Action
       className={cn(
@@ -62,12 +61,10 @@ function ToastAction({ className, ...props }: ToastActionProps) {
     />
   )
 }
-Toast.Action = ToastAction
 
-function ToastClose({ className, ...props }: ToastCloseProps) {
+Toast.Close = function ToastClose({ className, ...props }: React.ComponentProps<typeof Close>) {
   return (
     <Close
-      toast-close=''
       className={cn(
         'text-foreground/50 hover:text-foreground absolute top-1 right-1 rounded-md p-1 opacity-0 transition-opacity',
         'focus:opacity-100 focus:ring-1 focus:outline-hidden focus:group-[.destructive]:ring-red-400 focus:group-[.destructive]:ring-offset-red-600',
@@ -80,14 +77,11 @@ function ToastClose({ className, ...props }: ToastCloseProps) {
     </Close>
   )
 }
-Toast.Close = ToastClose
 
-function ToastTitle({ className, ...props }: ToastTitleProps) {
+Toast.Title = function ToastTitle({ className, ...props }: React.ComponentProps<typeof Title>) {
   return <Title className={cn('text-sm font-semibold [&+div]:text-xs', className)} {...props} />
 }
-Toast.Title = ToastTitle
 
-function ToastDescription({ className, ...props }: ToastDescriptionProps) {
+Toast.Description = function ToastDescription({ className, ...props }: React.ComponentProps<typeof Description>) {
   return <Description className={cn('text-sm opacity-90', className)} {...props} />
 }
-Toast.Description = ToastDescription

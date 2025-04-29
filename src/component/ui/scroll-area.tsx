@@ -1,10 +1,10 @@
 'use client'
 
-import { Root, Viewport, Corner, ScrollAreaProps, ScrollAreaScrollbar, ScrollAreaScrollbarProps, ScrollAreaThumb } from '@radix-ui/react-scroll-area'
+import { Root, Viewport, Corner, ScrollAreaScrollbar, ScrollAreaThumb } from '@radix-ui/react-scroll-area'
 
 import { cn } from '@/lib'
 
-export function ScrollArea({ className, children, ...props }: ScrollAreaProps) {
+export function ScrollArea({ className, children, ...props }: React.ComponentProps<typeof Root>) {
   return (
     <Root className={cn('relative overflow-hidden', className)} {...props}>
       <Viewport className='h-full w-full rounded-[inherit]'>{children}</Viewport>
@@ -14,7 +14,7 @@ export function ScrollArea({ className, children, ...props }: ScrollAreaProps) {
   )
 }
 
-export function ScrollBar({ className, orientation = 'vertical', ...props }: ScrollAreaScrollbarProps) {
+export function ScrollBar({ className, orientation = 'vertical', ...props }: React.ComponentProps<typeof ScrollAreaScrollbar>) {
   return (
     <ScrollAreaScrollbar
       orientation={orientation}

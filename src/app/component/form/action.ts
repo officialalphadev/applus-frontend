@@ -5,14 +5,14 @@ import { TSendMessageSchema } from './schema'
 import { Logger } from '@/lib'
 
 export async function SendMessageAction(payload: TSendMessageSchema): Promise<ActionReturn> {
-  Logger.trace({ action: 'SendMessage', payload })
+  Logger.Trace({ action: 'SendMessage', payload })
 
   try {
     await new Promise((resolve) => setTimeout(resolve, 100))
 
     return Promise.resolve({ status: 'success', message: 'Pesan berhasil dikirim' })
   } catch (error) {
-    Logger.error({
+    Logger.Error({
       action: 'SendMessage',
       message: 'Failed to send message',
       error: (error as Error).message,

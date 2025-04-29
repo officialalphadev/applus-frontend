@@ -1,7 +1,10 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
+'use client'
+
 import { LogOut } from 'lucide-react'
+import { signOut } from 'next-auth/react'
+
 import { Button, ButtonProps } from './button'
 
 interface LogoutButtonProps extends ButtonProps {
@@ -9,10 +12,8 @@ interface LogoutButtonProps extends ButtonProps {
   redirectPath?: string
 }
 
-export function LogoutButton({ showIcon = true, redirectPath = '/auth/login', children, ...props }: LogoutButtonProps) {
-  const handleLogout = () => {
-    signOut({ callbackUrl: redirectPath })
-  }
+export function LogoutButton({ showIcon = true, redirectPath = '/auth/login', children, ...props }: Readonly<LogoutButtonProps>) {
+  const handleLogout = () => signOut({ callbackUrl: redirectPath })
 
   return (
     <Button onClick={handleLogout} variant='outline' {...props}>
