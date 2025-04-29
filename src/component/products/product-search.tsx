@@ -1,13 +1,12 @@
 'use client'
 
+import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Search, X } from 'lucide-react'
-import Link from 'next/link'
+
 import { useDebounce, useProductSearch } from '@/hook'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { Card } from '../ui/card'
-import Image from 'next/image'
+import { Button, Card, Input } from '@/component'
 
 export default function ProductSearch() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -15,9 +14,7 @@ export default function ProductSearch() {
 
   const { data, isLoading } = useProductSearch(debouncedSearchTerm)
 
-  const handleClear = () => {
-    setSearchTerm('')
-  }
+  const handleClear = () => setSearchTerm('')
 
   return (
     <div className='relative mb-8'>

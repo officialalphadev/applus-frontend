@@ -1,10 +1,8 @@
 'use client'
 
 import { Check, ChevronRight, Circle } from 'lucide-react'
+import { RadioItem, Root, Separator, Sub, SubContent, SubTrigger, Trigger } from '@radix-ui/react-dropdown-menu'
 import { CheckboxItem, Content, Group, Item, ItemIndicator, Label, Portal, RadioGroup } from '@radix-ui/react-dropdown-menu'
-import { DropdownMenuProps, RadioItem, Root, Separator, Sub, SubContent, SubTrigger, Trigger } from '@radix-ui/react-dropdown-menu'
-import { DropdownMenuCheckboxItemProps, DropdownMenuContentProps, DropdownMenuItemProps, DropdownMenuLabelProps } from '@radix-ui/react-dropdown-menu'
-import { DropdownMenuRadioItemProps, DropdownMenuSeparatorProps, DropdownMenuSubContentProps, DropdownMenuSubTriggerProps } from '@radix-ui/react-dropdown-menu'
 
 import { cn } from '@/lib'
 
@@ -14,11 +12,12 @@ DropdownMenu.Portal = Portal
 DropdownMenu.Sub = Sub
 DropdownMenu.RadioGroup = RadioGroup
 
-export function DropdownMenu(props: DropdownMenuProps) {
+export function DropdownMenu(props: Readonly<React.ComponentProps<typeof Root>>) {
   return <Root {...props} />
 }
 
-function DropdownMenuSubTrigger({ className, children, inset, ...props }: DropdownMenuSubTriggerProps & { inset?: boolean }) {
+DropdownMenu.SubTrigger = function DropdownMenuSubTrigger(props: React.ComponentProps<typeof SubTrigger> & { inset?: boolean }) {
+  const { className, children, inset, ...rest } = props
   return (
     <SubTrigger
       className={cn(
@@ -28,16 +27,15 @@ function DropdownMenuSubTrigger({ className, children, inset, ...props }: Dropdo
         inset && 'pl-8',
         className
       )}
-      {...props}
+      {...rest}
     >
       {children}
       <ChevronRight className='ml-auto' />
     </SubTrigger>
   )
 }
-DropdownMenu.SubTrigger = DropdownMenuSubTrigger
 
-function DropdownMenuSubContent({ className, ...props }: DropdownMenuSubContentProps) {
+DropdownMenu.SubContent = function DropdownMenuSubContent({ className, ...props }: React.ComponentProps<typeof SubContent>) {
   return (
     <SubContent
       className={cn(
@@ -52,9 +50,8 @@ function DropdownMenuSubContent({ className, ...props }: DropdownMenuSubContentP
     />
   )
 }
-DropdownMenu.SubContent = DropdownMenuSubContent
 
-function DropdownMenuContent({ className, sideOffset = 4, ...props }: DropdownMenuContentProps) {
+DropdownMenu.Content = function DropdownMenuContent({ className, sideOffset = 4, ...props }: React.ComponentProps<typeof Content>) {
   return (
     <Portal>
       <Content
@@ -72,9 +69,8 @@ function DropdownMenuContent({ className, sideOffset = 4, ...props }: DropdownMe
     </Portal>
   )
 }
-DropdownMenu.Content = DropdownMenuContent
 
-function DropdownMenuItem({ className, inset, ...props }: DropdownMenuItemProps & { inset?: boolean }) {
+DropdownMenu.Item = function DropdownMenuItem({ className, inset, ...props }: React.ComponentProps<typeof Item> & { inset?: boolean }) {
   return (
     <Item
       className={cn(
@@ -90,9 +86,8 @@ function DropdownMenuItem({ className, inset, ...props }: DropdownMenuItemProps 
     />
   )
 }
-DropdownMenu.Item = DropdownMenuItem
 
-function DropdownMenuCheckboxItem({ className, children, ...props }: DropdownMenuCheckboxItemProps) {
+DropdownMenu.CheckboxItem = function DropdownMenuCheckboxItem({ className, children, ...props }: React.ComponentProps<typeof CheckboxItem>) {
   return (
     <CheckboxItem
       className={cn(
@@ -113,9 +108,8 @@ function DropdownMenuCheckboxItem({ className, children, ...props }: DropdownMen
     </CheckboxItem>
   )
 }
-DropdownMenu.CheckboxItem = DropdownMenuCheckboxItem
 
-function DropdownMenuRadioItem({ className, children, ...props }: DropdownMenuRadioItemProps) {
+DropdownMenu.RadioItem = function DropdownMenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof RadioItem>) {
   return (
     <RadioItem
       className={cn(
@@ -136,19 +130,15 @@ function DropdownMenuRadioItem({ className, children, ...props }: DropdownMenuRa
     </RadioItem>
   )
 }
-DropdownMenu.RadioItem = DropdownMenuRadioItem
 
-function DropdownMenuLabel({ className, inset, ...props }: DropdownMenuLabelProps & { inset?: boolean }) {
+DropdownMenu.Label = function DropdownMenuLabel({ className, inset, ...props }: React.ComponentProps<typeof Label> & { inset?: boolean }) {
   return <Label className={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)} {...props} />
 }
-DropdownMenu.Label = DropdownMenuLabel
 
-function DropdownMenuSeparator({ className, ...props }: DropdownMenuSeparatorProps) {
+DropdownMenu.Separator = function DropdownMenuSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
   return <Separator className={cn('bg-muted -mx-1 my-1 h-px', className)} {...props} />
 }
-DropdownMenu.Separator = DropdownMenuSeparator
 
-function DropdownMenuShortcut({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
+DropdownMenu.Shortcut = function DropdownMenuShortcut({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
   return <span className={cn('ml-auto text-xs tracking-widest opacity-60', className)} {...props} />
 }
-DropdownMenu.Shortcut = DropdownMenuShortcut

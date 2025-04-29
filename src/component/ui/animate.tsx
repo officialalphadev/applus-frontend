@@ -1,7 +1,7 @@
 'use client'
 
-import { createElement, isValidElement, ReactElement } from 'react'
 import { motion } from 'framer-motion'
+import { createElement, isValidElement, ReactElement } from 'react'
 
 export interface AnimateProps {
   children: React.ReactNode

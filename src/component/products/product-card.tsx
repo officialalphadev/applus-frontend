@@ -1,7 +1,7 @@
 'use client'
 import { StarIcon } from 'lucide-react'
 import Link from 'next/link'
-import { IProduct } from '@/type/product.types'
+import { IProduct } from '@/type/product-type'
 import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
@@ -11,7 +11,7 @@ interface ProductCardProps {
   product: IProduct
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product }: Readonly<ProductCardProps>) {
   const discountedPrice = product.price * (1 - product.discountPercentage / 100)
 
   return (

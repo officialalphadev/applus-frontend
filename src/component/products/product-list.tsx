@@ -1,19 +1,23 @@
 'use client'
 
-import { useState } from 'react'
 import ProductCard from './product-card'
-import { useProducts } from '@/hook'
+import { useProducts, useSearchParams, useSetSearchParams } from '@/hook'
 import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
 
 export default function ProductList() {
-  const [page, setPage] = useState(0)
-  const limit = 10
+  const searchParams = useSearchParams({ page: '1', limit: '10' })
+  const setSearchParams = useSetSearchParams()
+
+  const page = Number(searchParams.get('page'))
+  const limit = Number(searchParams.get('limit'))
   const skip = page * limit
 
   const { data, isLoading, isError, error } = useProducts({ limit, skip })
 
-  if (isLoading) {
+  const totalPages = Math.ceil((data?.total ?? 0) / limit) - 1
+
+  if (isLoading || !skip) {
     return (
       <div className='mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {Array.from({ length: 6 }).map((_, i) => (
@@ -39,24 +43,19 @@ export default function ProductList() {
     )
   }
 
-  const totalPages = Math.ceil((data?.total || 0) / limit)
-
   return (
     <div>
       <div className='mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {data?.products.map((product) => <ProductCard key={product.id} product={product} />)}
       </div>
-
       <div className='mt-8 flex items-center justify-between'>
-        <Button onClick={() => setPage((prev) => Math.max(0, prev - 1))} disabled={page === 0} variant='outline'>
+        <Button onClick={() => setSearchParams({ page: String(page - 1) })} disabled={page === 0} variant='outline'>
           Previous
         </Button>
-
         <span>
-          Page {page + 1} of {totalPages}
+          Page {page} of {totalPages}
         </span>
-
-        <Button onClick={() => setPage((prev) => (prev + 1 < totalPages ? prev + 1 : prev))} disabled={page + 1 >= totalPages} variant='outline'>
+        <Button onClick={() => setSearchParams({ page: String(page + 1) })} disabled={page + 1 >= totalPages} variant='outline'>
           Next
         </Button>
       </div>

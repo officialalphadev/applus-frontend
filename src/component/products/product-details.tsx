@@ -5,7 +5,7 @@ import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
 import { useProduct } from '@/hook'
 import { Badge } from '../ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
+import { Tabs } from '../ui/tabs'
 import { Card } from '../ui/card'
 import Image from 'next/image'
 
@@ -13,7 +13,7 @@ interface ProductDetailsProps {
   id: number
 }
 
-export default function ProductDetails({ id }: ProductDetailsProps) {
+export default function ProductDetails({ id }: Readonly<ProductDetailsProps>) {
   const { data: product, isLoading, isError, error } = useProduct(id)
 
   if (isLoading) {
@@ -116,12 +116,12 @@ export default function ProductDetails({ id }: ProductDetailsProps) {
 
           <div className='mt-8'>
             <Tabs defaultValue='details'>
-              <TabsList className='grid w-full grid-cols-3'>
-                <TabsTrigger value='details'>Details</TabsTrigger>
-                <TabsTrigger value='shipping'>Shipping</TabsTrigger>
-                <TabsTrigger value='reviews'>Reviews</TabsTrigger>
-              </TabsList>
-              <TabsContent value='details' className='mt-4'>
+              <Tabs.List className='grid w-full grid-cols-3'>
+                <Tabs.Trigger value='details'>Details</Tabs.Trigger>
+                <Tabs.Trigger value='shipping'>Shipping</Tabs.Trigger>
+                <Tabs.Trigger value='reviews'>Reviews</Tabs.Trigger>
+              </Tabs.List>
+              <Tabs.Content value='details' className='mt-4'>
                 <Card>
                   <Card.Content className='pt-4'>
                     <dl className='divide-y'>
@@ -150,8 +150,8 @@ export default function ProductDetails({ id }: ProductDetailsProps) {
                     </dl>
                   </Card.Content>
                 </Card>
-              </TabsContent>
-              <TabsContent value='shipping' className='mt-4'>
+              </Tabs.Content>
+              <Tabs.Content value='shipping' className='mt-4'>
                 <Card>
                   <Card.Content className='pt-4'>
                     <h3 className='mb-2 font-medium'>Shipping Information</h3>
@@ -173,12 +173,11 @@ export default function ProductDetails({ id }: ProductDetailsProps) {
                     </div>
                   </Card.Content>
                 </Card>
-              </TabsContent>
-              <TabsContent value='reviews' className='mt-4'>
+              </Tabs.Content>
+              <Tabs.Content value='reviews' className='mt-4'>
                 <Card>
                   <Card.Content className='pt-4'>
                     <h3 className='mb-4 font-medium'>Customer Reviews</h3>
-
                     {product.reviews.length > 0 ? (
                       <div className='space-y-4'>
                         {product.reviews.map((review, index) => (
@@ -203,7 +202,7 @@ export default function ProductDetails({ id }: ProductDetailsProps) {
                     )}
                   </Card.Content>
                 </Card>
-              </TabsContent>
+              </Tabs.Content>
             </Tabs>
           </div>
         </div>

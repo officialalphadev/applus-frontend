@@ -1,12 +1,11 @@
 'use client'
 
-import { createContext, useId } from 'react'
-import { LabelProps } from '@radix-ui/react-label'
-import { Slot, SlotProps } from '@radix-ui/react-slot'
+import { Slot } from '@radix-ui/react-slot'
+import React, { createContext, useId, useMemo } from 'react'
 import { FieldPath, FieldValues, FormProvider, useFormContext, UseFormReturn } from 'react-hook-form'
 import { ControllerProps, ControllerRenderProps, Path, SubmitHandler, Controller } from 'react-hook-form'
 
-import { Button, ButtonProps, Label, Show } from '@/component'
+import { Button, Label, Show } from '@/component'
 import { useFormField } from '@/hook'
 import { cn } from '@/lib'
 
@@ -36,11 +35,11 @@ export type FormFieldProps<T extends FieldValues> = ControllerProps<T> & {
   render: (field: ControllerRenderProps<T, Path<T>>) => React.ReactNode
 }
 
-function FormField<T extends FieldValues>({ name, label, render, ...props }: FormFieldProps<T>) {
+Form.Field = function FormField<T extends FieldValues>({ name, label, render, ...props }: FormFieldProps<T>) {
   const { control } = useFormContext<T>()
 
   return (
-    <FormFieldContext.Provider value={{ name }}>
+    <FormFieldContext.Provider value={useMemo(() => ({ name }), [name])}>
       <Controller
         {...props}
         name={name}
@@ -58,69 +57,53 @@ function FormField<T extends FieldValues>({ name, label, render, ...props }: For
     </FormFieldContext.Provider>
   )
 }
-Form.Field = FormField
 
 export type FormItemContextValue = {
   id: string
 }
 
-const FormItemContext = createContext<FormItemContextValue>({} as FormItemContextValue)
-Form.ItemContext = FormItemContext
+Form.ItemContext = createContext<FormItemContextValue>({} as FormItemContextValue)
 
-function FormItem({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
+Form.Item = function FormItem({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
   const id = useId()
-
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <Form.ItemContext.Provider value={useMemo(() => ({ id }), [id])}>
       <div className={cn('space-y-2', className)} {...props} />
-    </FormItemContext.Provider>
+    </Form.ItemContext.Provider>
   )
 }
-Form.Item = FormItem
 
-function FormLabel({ className, ...props }: LabelProps) {
+Form.Label = function FormLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
   const { error, formItemId } = useFormField()
-
   return <Label className={cn(error && 'text-destructive', className)} htmlFor={formItemId} {...props} />
 }
-Form.Label = FormLabel
 
-function FormControl(props: SlotProps) {
+Form.Control = function FormControl(props: React.ComponentProps<typeof Slot>) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
-
   return <Slot id={formItemId} aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`} aria-invalid={!!error} {...props} />
 }
-Form.Control = FormControl
 
-function FormDescription({ className, ...props }: Readonly<React.HTMLAttributes<HTMLParagraphElement>>) {
+Form.Description = function FormDescription({ className, ...props }: Readonly<React.HTMLAttributes<HTMLParagraphElement>>) {
   const { formDescriptionId } = useFormField()
-
   return <p id={formDescriptionId} className={cn('text-muted-foreground text-[0.8rem]', className)} {...props} />
 }
-Form.Description = FormDescription
 
-function FormMessage({ className, children, ...props }: Readonly<React.HTMLAttributes<HTMLParagraphElement>>) {
+Form.Message = function FormMessage({ className, children, ...props }: Readonly<React.HTMLAttributes<HTMLParagraphElement>>) {
   const { error, formMessageId } = useFormField()
-
   const body = error ? String(error?.message) : children
-
   if (!body) return null
-
   return (
     <p id={formMessageId} className={cn('text-destructive text-[0.8rem] font-medium', className)} {...props}>
       {body}
     </p>
   )
 }
-Form.Message = FormMessage
 
-function FormSubmitButton({ className, children, ...props }: ButtonProps) {
+Form.SubmitButton = function FormSubmitButton({ className, children, ...props }: React.ComponentProps<typeof Button>) {
   const { formState } = useFormContext()
-
   return (
     <Button type='submit' className={cn('w-full', className)} disabled={formState.isSubmitting} {...props}>
       {formState.isSubmitting ? 'Loading...' : children}
     </Button>
   )
 }
-Form.SubmitButton = FormSubmitButton

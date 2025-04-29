@@ -1,20 +1,20 @@
 'use client'
 
 import { X } from 'lucide-react'
-import { Root, Trigger, Portal, Close, Overlay, Content, Title, Description, DialogProps } from '@radix-ui/react-dialog'
-import { DialogOverlayProps, DialogPortalProps, DialogTitleProps, DialogDescriptionProps } from '@radix-ui/react-dialog'
+import { Root, Trigger, Portal, Close, Overlay, Content, Title, Description } from '@radix-ui/react-dialog'
 
 import { cn } from '@/lib'
+import React from 'react'
 
 Dialog.Trigger = Trigger
 Dialog.Portal = Portal
 Dialog.Close = Close
 
-export function Dialog(props: DialogProps) {
+export function Dialog(props: Readonly<React.ComponentProps<typeof Root>>) {
   return <Root {...props} />
 }
 
-function DialogOverlay({ className, ...props }: DialogOverlayProps) {
+Dialog.Overlay = function DialogOverlay({ className, ...props }: Readonly<React.ComponentProps<typeof Overlay>>) {
   return (
     <Overlay
       className={cn(
@@ -27,9 +27,8 @@ function DialogOverlay({ className, ...props }: DialogOverlayProps) {
     />
   )
 }
-Dialog.Overlay = DialogOverlay
 
-function DialogContent({ className, children, ...props }: DialogPortalProps & { className?: string }) {
+Dialog.Content = function DialogContent({ className, children, ...props }: Readonly<React.ComponentProps<typeof Content>>) {
   return (
     <Dialog.Portal>
       <Dialog.Overlay />
@@ -59,24 +58,19 @@ function DialogContent({ className, children, ...props }: DialogPortalProps & { 
     </Dialog.Portal>
   )
 }
-Dialog.Content = DialogContent
 
-function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+Dialog.Header = function DialogHeader({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
   return <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />
 }
-Dialog.Header = DialogHeader
 
-function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+Dialog.Footer = function DialogFooter({ className, ...props }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
   return <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)} {...props} />
 }
-Dialog.Footer = DialogFooter
 
-function DialogTitle({ className, ...props }: DialogTitleProps) {
+Dialog.Title = function DialogTitle({ className, ...props }: Readonly<React.ComponentProps<typeof Title>>) {
   return <Title className={cn('text-lg leading-none font-semibold tracking-tight', className)} {...props} />
 }
-Dialog.Title = DialogTitle
 
-function DialogDescription({ className, ...props }: DialogDescriptionProps) {
+Dialog.Description = function DialogDescription({ className, ...props }: Readonly<React.ComponentProps<typeof Description>>) {
   return <Description className={cn('text-muted-foreground text-sm', className)} {...props} />
 }
-Dialog.Description = DialogDescription

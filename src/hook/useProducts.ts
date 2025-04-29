@@ -1,8 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { productService } from '@/services/product.service'
-import type { IProduct, IProductQueryParams } from '@/type/product.types'
+'use client'
 
-// Query keys
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+
+import type { IProduct, IProductQueryParams } from '@/type'
+import { ProductService } from '@/service'
+import { TIME } from '@/lib'
+
 export const productKeys = {
   all: ['products'] as const,
   lists: () => [...productKeys.all, 'list'] as const,
@@ -13,64 +16,55 @@ export const productKeys = {
   category: (category: string) => [...productKeys.categories(), category] as const
 }
 
-// Hooks
 export const useProducts = (params?: IProductQueryParams) => {
   return useQuery({
     queryKey: productKeys.list(params || {}),
-    queryFn: () => productService.getProducts(params),
-    staleTime: 5 * 60 * 1000 // 5 minutes
+    queryFn: () => ProductService.GetProducts(params),
+    staleTime: TIME.FIVE_MINUTES
   })
 }
 
 export const useProduct = (id: number) => {
   return useQuery({
     queryKey: productKeys.detail(id),
-    queryFn: () => productService.getProductById(id),
-    staleTime: 10 * 60 * 1000, // 10 minutes
-    enabled: !!id // Only run if id is provided
+    queryFn: () => ProductService.GetProduct(id),
+    staleTime: TIME.TEN_MINUTES,
+    enabled: !!id
   })
 }
 
 export const useProductSearch = (query: string) => {
   return useQuery({
     queryKey: [...productKeys.lists(), 'search', query],
-    queryFn: () => productService.searchProducts(query),
-    enabled: query.length > 0, // Only run if query is not empty
-    staleTime: 2 * 60 * 1000 // 2 minutes
+    queryFn: () => ProductService.SearchProducts(query),
+    enabled: query.length > 0,
+    staleTime: TIME.TWO_MINUTES
   })
 }
 
 export const useProductsByCategory = (category: string, params?: IProductQueryParams) => {
   return useQuery({
     queryKey: [...productKeys.category(category), params],
-    queryFn: () => productService.getProductsByCategory(category, params),
-    enabled: !!category, // Only run if category is provided
-    staleTime: 5 * 60 * 1000 // 5 minutes
+    queryFn: () => ProductService.GetProductsByCategory(category, params),
+    enabled: !!category,
+    staleTime: TIME.FIVE_MINUTES
   })
 }
 
-// Mutations
 export const useAddProduct = () => {
   const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: (product: Omit<IProduct, 'id'>) => productService.addProduct(product),
-    onSuccess: () => {
-      // Invalidate and refetch products list
-      queryClient.invalidateQueries({ queryKey: productKeys.lists() })
-    }
+    mutationFn: (product: Omit<IProduct, 'id'>) => ProductService.AddProduct(product),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: productKeys.lists() })
   })
 }
 
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: ({ id, product }: { id: number; product: Partial<IProduct> }) => productService.updateProduct(id, product),
+    mutationFn: ({ id, product }: { id: number; product: Partial<IProduct> }) => ProductService.UpdateProduct(id, product),
     onSuccess: (data) => {
-      // Update the product in the cache
       queryClient.setQueryData(productKeys.detail(data.id), data)
-      // Invalidate lists that might contain this product
       queryClient.invalidateQueries({ queryKey: productKeys.lists() })
     }
   })
@@ -78,13 +72,10 @@ export const useUpdateProduct = () => {
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: (id: number) => productService.deleteProduct(id),
+    mutationFn: (id: number) => ProductService.DeleteProduct(id),
     onSuccess: (_, id) => {
-      // Remove the product from the cache
       queryClient.removeQueries({ queryKey: productKeys.detail(id) })
-      // Invalidate lists that might contain this product
       queryClient.invalidateQueries({ queryKey: productKeys.lists() })
     }
   })
