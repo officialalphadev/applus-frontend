@@ -37,7 +37,7 @@ export function LoginForm() {
   }
 
   return (
-    <div className='flex min-h-[100dh] items-center justify-center px-4 py-12 sm:px-6 lg:px-8'>
+    <div className='flex h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8'>
       <Card className='w-full max-w-md'>
         <Card.Header className='space-y-1 text-center'>
           <Card.Title className='text-2xl font-bold'>Sign in to your account</Card.Title>
