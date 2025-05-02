@@ -13,7 +13,7 @@ export default function AppLayout({ children }: Readonly<{ children: React.React
   return (
     <html lang='id' suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
           <SessionProvider>
             <QueryProvider>
               <Header />

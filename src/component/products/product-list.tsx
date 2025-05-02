@@ -1,13 +1,12 @@
 'use client'
 
 import ProductCard from './product-card'
-import { useProducts, useSearchParams, useSetSearchParams } from '@/hook'
+import { useProducts, useSearchParams } from '@/hook'
 import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
 
 export default function ProductList() {
-  const searchParams = useSearchParams({ page: '1', limit: '10' })
-  const setSearchParams = useSetSearchParams()
+  const { searchParams, setSearchParams } = useSearchParams({ page: '1', limit: '10' })
 
   const page = Number(searchParams.get('page'))
   const limit = Number(searchParams.get('limit'))

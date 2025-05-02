@@ -1,28 +1,34 @@
-import { useEffect } from 'react'
+'use client'
+
+import { useEffect, useMemo } from 'react'
 import { usePathname, useRouter, useSearchParams as useSearchParamsOriginal } from 'next/navigation'
 
-type DefaultParams = Record<string, string>
-
-export function useSearchParams(defaults: DefaultParams) {
+export function useSearchParams(defaults?: Record<string, string | undefined>) {
   const searchParams = useSearchParamsOriginal()
   const setSearchParams = useSetSearchParams()
 
+  const memoizedDefaults = useMemo(() => defaults, [defaults])
+
   useEffect(() => {
+    if (!memoizedDefaults) return
+
     const updates: Record<string, string> = {}
 
-    for (const [key, defaultValue] of Object.entries(defaults)) {
-      if (!searchParams.get(key)) {
-        updates[key] = defaultValue
-      }
+    for (const [key, defaultValue] of Object.entries(memoizedDefaults)) {
+      if (!searchParams.get(key) && defaultValue != null) updates[key] = defaultValue
     }
 
     if (Object.keys(updates).length > 0) {
-      const prevParams = Object.fromEntries(searchParams.entries())
-      setSearchParams({ ...prevParams, ...updates })
-    }
-  }, [searchParams, setSearchParams, defaults])
+      const currentParams = Object.fromEntries(searchParams.entries())
+      const mergedParams = { ...currentParams, ...updates }
 
-  return searchParams
+      const changed = Object.entries(updates).some(([key, value]) => searchParams.get(key) !== value)
+
+      if (changed) setSearchParams(mergedParams)
+    }
+  }, [searchParams, setSearchParams, memoizedDefaults])
+
+  return { searchParams, setSearchParams }
 }
 
 export function useSetSearchParams() {
@@ -33,15 +39,15 @@ export function useSetSearchParams() {
   return (updates: Record<string, string | undefined>) => {
     const params = new URLSearchParams(currentSearchParams.toString())
 
-    Object.entries(updates).forEach(([key, value]) => {
-      if (value === undefined || value === null) {
+    for (const [key, value] of Object.entries(updates)) {
+      if (value == null) {
         params.delete(key)
       } else {
         params.set(key, value)
       }
-    })
+    }
 
     const queryString = params.toString()
-    router.replace(`${pathname}${queryString ? `?${queryString}` : ''}`)
+    router.replace(`${pathname}${queryString ? '?' + queryString : ''}`)
   }
 }
