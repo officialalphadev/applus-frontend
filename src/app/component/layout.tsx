@@ -7,5 +7,5 @@ export interface ComponentLayoutProps {
 }
 
 export default function ComponentLayout({ children }: Readonly<ComponentLayoutProps>) {
-  return <main>{children}</main>
+  return <div>{children}</div>
 }

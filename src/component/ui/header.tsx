@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { UserNav } from './user-nav'
 import { useSession } from 'next-auth/react'
 
-export function Header() {
+export function Navbar() {
   const { data: session } = useSession()
 
   if (!session?.user) {
