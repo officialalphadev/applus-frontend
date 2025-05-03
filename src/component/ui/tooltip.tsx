@@ -11,7 +11,7 @@ export function Tooltip(props: Readonly<React.ComponentProps<typeof Root>>) {
   return <Root {...props} />
 }
 
-Tooltip.Content = function TooltiipContent({ className, sideOffset = 4, ...props }: React.ComponentProps<typeof Content>) {
+Tooltip.Content = function TooltipContent({ className, sideOffset = 4, ...props }: React.ComponentProps<typeof Content>) {
   return (
     <Portal>
       <Content
