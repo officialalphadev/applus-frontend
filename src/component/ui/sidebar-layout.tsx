@@ -1,6 +1,7 @@
-import { AppSidebar } from '@/component/app-sidebar'
-import { SidebarInset, SidebarProvider } from '@/component/ui/sidebar'
 import { cookies } from 'next/headers'
+
+import { AppSidebar } from '@/component/app-sidebar'
+import { SidebarInset, SidebarProvider } from '@/component'
 
 export interface ComponentLayoutProps {
   children: React.ReactNode

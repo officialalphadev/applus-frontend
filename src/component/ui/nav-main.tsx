@@ -1,21 +1,12 @@
 'use client'
 
 import { ChevronRight, type LucideIcon } from 'lucide-react'
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem
-} from './sidebar'
-import { Collapsible } from './collapsibles'
+
+import { Sidebar, Collapsible } from '@/component'
 
 export function NavMain({
   items
-}: {
+}: Readonly<{
   items: {
     title: string
     url: string
@@ -26,38 +17,38 @@ export function NavMain({
       url: string
     }[]
   }[]
-}) {
+}>) {
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
+    <Sidebar.Group>
+      <Sidebar.GroupLabel>Platform</Sidebar.GroupLabel>
+      <Sidebar.Menu>
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive} className='group/collapsible'>
-            <SidebarMenuItem>
+            <Sidebar.MenuItem>
               <Collapsible.Trigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
+                <Sidebar.MenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                   <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
-                </SidebarMenuButton>
+                </Sidebar.MenuButton>
               </Collapsible.Trigger>
               <Collapsible.Content>
-                <SidebarMenuSub>
+                <Sidebar.MenuSub>
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
+                    <Sidebar.MenuSubItem key={subItem.title}>
+                      <Sidebar.MenuSubButton asChild>
                         <a href={subItem.url}>
                           <span>{subItem.title}</span>
                         </a>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
+                      </Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
                   ))}
-                </SidebarMenuSub>
+                </Sidebar.MenuSub>
               </Collapsible.Content>
-            </SidebarMenuItem>
+            </Sidebar.MenuItem>
           </Collapsible>
         ))}
-      </SidebarMenu>
-    </SidebarGroup>
+      </Sidebar.Menu>
+    </Sidebar.Group>
   )
 }

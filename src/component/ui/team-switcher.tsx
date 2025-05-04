@@ -1,32 +1,30 @@
 'use client'
 
-import * as React from 'react'
+import { useState } from 'react'
 import { ChevronsUpDown, Plus } from 'lucide-react'
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from './sidebar'
-import { DropdownMenu } from './dropdown-menu'
+
+import { DropdownMenu, Sidebar, useSidebar } from '@/component'
 
 export function TeamSwitcher({
   teams
-}: {
+}: Readonly<{
   teams: {
     name: string
     logo: React.ElementType
     plan: string
   }[]
-}) {
+}>) {
   const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const [activeTeam, setActiveTeam] = useState(teams[0])
 
-  if (!activeTeam) {
-    return null
-  }
+  if (!activeTeam) return null
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
+    <Sidebar.Menu>
+      <Sidebar.MenuItem>
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
-            <SidebarMenuButton size='lg' className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
+            <Sidebar.MenuButton size='lg' className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
               <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
                 <activeTeam.logo className='size-4' />
               </div>
@@ -35,7 +33,7 @@ export function TeamSwitcher({
                 <span className='truncate text-xs'>{activeTeam.plan}</span>
               </div>
               <ChevronsUpDown className='ml-auto' />
-            </SidebarMenuButton>
+            </Sidebar.MenuButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content
             className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
@@ -62,7 +60,7 @@ export function TeamSwitcher({
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+      </Sidebar.MenuItem>
+    </Sidebar.Menu>
   )
 }
