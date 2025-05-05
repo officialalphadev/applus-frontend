@@ -1,8 +1,8 @@
 import React from 'react'
-import { SidebarTrigger } from '../sidebar'
-import { Separator } from '../separator'
-import { Breadcrumb } from '../breadcrumb'
-import { UserNav } from '../user-nav'
+import { SidebarTrigger } from '../../../component/ui/sidebar'
+import { Separator } from '../../../component/ui/separator'
+import { Breadcrumb } from '../../../component/ui/breadcrumb'
+import { UserNav } from './user-nav'
 
 export default function Header() {
   return (

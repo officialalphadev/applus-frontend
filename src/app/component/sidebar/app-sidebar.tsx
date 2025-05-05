@@ -1,14 +1,12 @@
 'use client'
 
-import * as React from 'react'
 import { AudioWaveform, BookOpen, Bot, Command, Frame, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal } from 'lucide-react'
-import { SidebarContent, SidebarFooter, SidebarHeader, SidebarMain, SidebarRail } from './ui/sidebar'
-import { TeamSwitcher } from './ui/team-switcher'
-import { NavMain } from './ui/nav-main'
-import { NavProjects } from './ui/nav-projects'
-import { NavUser } from './ui/nav-user'
+import { TeamSwitcher } from './team-switcher'
+import { NavMain } from './nav-main'
+import { NavProjects } from './nav-projects'
+import { NavUser } from './nav-user'
+import { Sidebar } from '@/component'
 
-// This is sample data.
 const data = {
   user: {
     name: 'shadcn',
@@ -138,20 +136,20 @@ const data = {
   ]
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof SidebarMain>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <SidebarMain collapsible='icon' {...props}>
-      <SidebarHeader>
+    <Sidebar collapsible='icon' {...props}>
+      <Sidebar.Header>
         <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
-      <SidebarContent>
+      </Sidebar.Header>
+      <Sidebar.Content>
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
-      </SidebarContent>
-      <SidebarFooter>
+      </Sidebar.Content>
+      <Sidebar.Footer>
         <NavUser user={data.user} />
-      </SidebarFooter>
-      <SidebarRail />
-    </SidebarMain>
+      </Sidebar.Footer>
+      <Sidebar.Rail />
+    </Sidebar>
   )
 }

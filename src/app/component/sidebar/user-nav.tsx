@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { LogOut, Settings, User } from 'lucide-react'
 
-import { DropdownMenu } from './dropdown-menu'
-import { Avatar } from './avatar'
-import { Button } from './button'
+import { DropdownMenu } from '../../../component/ui/dropdown-menu'
+import { Avatar } from '../../../component/ui/avatar'
+import { Button } from '../../../component/ui/button'
 
 export function UserNav() {
   const { data: session } = useSession()

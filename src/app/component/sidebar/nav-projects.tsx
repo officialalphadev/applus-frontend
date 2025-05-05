@@ -1,38 +1,38 @@
 'use client'
 
 import { Folder, Forward, MoreHorizontal, Trash2, type LucideIcon } from 'lucide-react'
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, useSidebar } from './sidebar'
-import { DropdownMenu } from './dropdown-menu'
+
+import { useSidebar, DropdownMenu, Sidebar } from '@/component'
 
 export function NavProjects({
   projects
-}: {
+}: Readonly<{
   projects: {
     name: string
     url: string
     icon: LucideIcon
   }[]
-}) {
+}>) {
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
-      <SidebarGroupLabel>Projects</SidebarGroupLabel>
-      <SidebarMenu>
+    <Sidebar.Group className='group-data-[collapsible=icon]:hidden'>
+      <Sidebar.GroupLabel>Projects</Sidebar.GroupLabel>
+      <Sidebar.Menu>
         {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
+          <Sidebar.MenuItem key={item.name}>
+            <Sidebar.MenuButton asChild>
               <a href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>
               </a>
-            </SidebarMenuButton>
+            </Sidebar.MenuButton>
             <DropdownMenu>
               <DropdownMenu.Trigger asChild>
-                <SidebarMenuAction showOnHover>
+                <Sidebar.MenuAction showOnHover>
                   <MoreHorizontal />
                   <span className='sr-only'>More</span>
-                </SidebarMenuAction>
+                </Sidebar.MenuAction>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content className='w-48 rounded-lg' side={isMobile ? 'bottom' : 'right'} align={isMobile ? 'end' : 'start'}>
                 <DropdownMenu.Item>
@@ -50,15 +50,15 @@ export function NavProjects({
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu>
-          </SidebarMenuItem>
+          </Sidebar.MenuItem>
         ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className='text-sidebar-foreground/70'>
+        <Sidebar.MenuItem>
+          <Sidebar.MenuButton className='text-sidebar-foreground/70'>
             <MoreHorizontal className='text-sidebar-foreground/70' />
             <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarGroup>
+          </Sidebar.MenuButton>
+        </Sidebar.MenuItem>
+      </Sidebar.Menu>
+    </Sidebar.Group>
   )
 }
