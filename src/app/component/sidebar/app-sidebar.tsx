@@ -1,10 +1,10 @@
 'use client'
 
 import { AudioWaveform, BookOpen, Bot, Command, Frame, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal } from 'lucide-react'
-import { TeamSwitcher } from './ui/team-switcher'
-import { NavMain } from './ui/nav-main'
-import { NavProjects } from './ui/nav-projects'
-import { NavUser } from './ui/nav-user'
+import { TeamSwitcher } from './team-switcher'
+import { NavMain } from './nav-main'
+import { NavProjects } from './nav-projects'
+import { NavUser } from './nav-user'
 import { Sidebar } from '@/component'
 
 const data = {

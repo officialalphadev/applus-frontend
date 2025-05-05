@@ -1,7 +1,8 @@
 import { cookies } from 'next/headers'
 
-import { AppSidebar } from '@/component/app-sidebar'
+import { AppSidebar } from '@/app/component/sidebar/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/component'
+import Header from '@/app/component/sidebar/header'
 
 export interface ComponentLayoutProps {
   children: React.ReactNode
@@ -10,10 +11,14 @@ export interface ComponentLayoutProps {
 export default async function SidebarLayout({ children }: Readonly<ComponentLayoutProps>) {
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true'
+
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar />
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset>
+        <Header />
+        {children}
+      </SidebarInset>
     </SidebarProvider>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 
-import { UserNav } from './user-nav'
+import { UserNav } from '../../app/component/sidebar/user-nav'
 import { useSession } from 'next-auth/react'
 
 export function Navbar() {
