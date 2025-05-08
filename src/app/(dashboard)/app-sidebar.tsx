@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { BadgeCheck, Bell, BookOpen, Bot, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOut, Settings2, Sparkles } from 'lucide-react'
 
 import { Avatar, Collapsible, DropdownMenu, Sidebar, useSidebar } from '@/component'
+import Image from 'next/image'
+import { signOut } from 'next-auth/react'
 
 const data = {
   user: {
@@ -15,11 +17,10 @@ const data = {
     { title: 'Beranda', url: '/', icon: Home },
     {
       title: 'Manajemen',
-      url: '/',
       icon: Bot,
       items: [
-        { title: 'Kelola Pengguna', url: '/user' },
-        { title: 'Kelola Role', url: '/role' }
+        { title: 'Kelola Pengguna', url: '/manajemen/kelola-pengguna' },
+        { title: 'Kelola Role', url: '/manajemen/kelola-role' }
       ]
     },
     {
@@ -85,8 +86,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible='icon' {...props}>
-      <Sidebar.Header>
-        <div className='h-14 w-full text-center font-bold'>DINAS PENDIDIKAN KAB. CIREBON</div>
+      <Sidebar.Header className='border-b'>
+        <Image src='/asset/logo-dinas.webp' alt='logo-dinas' className='mx-auto h-12 object-contain' width={512} height={512} />
       </Sidebar.Header>
       <Sidebar.Content>
         <Sidebar.Menu>
@@ -191,7 +192,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </DropdownMenu.Item>
                 </DropdownMenu.Group>
                 <DropdownMenu.Separator />
-                <DropdownMenu.Item>
+                <DropdownMenu.Item onClick={() => signOut()}>
                   <LogOut />
                   Log out
                 </DropdownMenu.Item>

@@ -1,26 +1,43 @@
-import { Breadcrumb, Separator, SidebarTrigger } from '@/component'
-import { UserNav } from '@/app/(dashboard)/user-nav'
+'use client'
+
+import { Bell } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+
+import { Breadcrumb, Button } from '@/component'
+import { Fragment } from 'react'
 
 export default function Header() {
+  const pathname = usePathname()
+
+  const breadcrumbs = pathname
+    .split('/')
+    .slice(1)
+    .map((segment) =>
+      segment
+        .replace(/-/g, ' ')
+        .split(' ')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
+    )
+
   return (
-    <header className='flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
-      <div className='flex items-center gap-2 px-4'>
-        <SidebarTrigger className='-ml-1' />
-        <Separator orientation='vertical' className='mr-2 h-4' />
+    <header className='sticky top-0 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-white transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
+      <div className='flex w-full items-center gap-2 px-4'>
         <Breadcrumb>
           <Breadcrumb.List>
-            <Breadcrumb.Item className='hidden md:block'>
-              <Breadcrumb.Link href='#'>Building Your Application</Breadcrumb.Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Separator className='hidden md:block' />
-            <Breadcrumb.Item>
-              <Breadcrumb.Page>Data Fetching</Breadcrumb.Page>
-            </Breadcrumb.Item>
+            {breadcrumbs.map((breadcrumb, index) => (
+              <Fragment key={breadcrumb}>
+                <Breadcrumb.Item key={breadcrumb}>
+                  <Breadcrumb.Link href='/'>{breadcrumb}</Breadcrumb.Link>
+                </Breadcrumb.Item>
+                {index < breadcrumbs.length - 1 && <Breadcrumb.Separator />}
+              </Fragment>
+            ))}
           </Breadcrumb.List>
         </Breadcrumb>
-      </div>
-      <div className='hidden items-center gap-4 px-4 md:flex'>
-        <UserNav />
+        <Button size='icon' variant='ghost' className='ml-auto'>
+          <Bell className='size-4' />
+        </Button>
       </div>
     </header>
   )
