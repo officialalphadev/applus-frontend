@@ -7,5 +7,5 @@ export interface ComponentLayoutProps {
 }
 
 export default function ComponentLayout({ children }: Readonly<ComponentLayoutProps>) {
-  return <div>{children}</div>
+  return <div className='flex h-dvh flex-col items-center justify-center'>{children}</div>
 }

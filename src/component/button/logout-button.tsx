@@ -5,7 +5,7 @@
 import { LogOut } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 
-import { Button, ButtonProps } from './button'
+import { Button, ButtonProps } from '../ui/button'
 
 interface LogoutButtonProps extends ButtonProps {
   showIcon?: boolean

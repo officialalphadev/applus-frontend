@@ -2,7 +2,7 @@
 
 // import { motion } from 'motion/react'
 
-import { Form, Input, Textarea, Animate, Card } from '@/component'
+import { Form, Input, Textarea, Animate, Card, DatePicker } from '@/component'
 import { SendMessageDefaultValue, SendMessageSchema, TSendMessageSchema } from './schema'
 import { SendMessageAction } from './action'
 import { useForm } from '@/hook'
@@ -33,6 +33,7 @@ export default function FormPage() {
   //   form.setValue('email', '3m4tC@example.com')
   //   form.setValue('message', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem?')
   //   form.setValue('category', OPTIONS[0].id)
+  //   form.setValue('date', new Date().toString())
   // }, [form])
 
   return (
@@ -45,6 +46,7 @@ export default function FormPage() {
           <Form form={form} onSubmit={handleSubmit}>
             <Form.Field label='Nama' name='name' render={(field) => <Input type='text' {...field} />} />
             <Form.Field label='Email' name='email' render={(field) => <Input type='email' {...field} />} />
+            <Form.Field label='Tanggal' name='date' render={(field) => <DatePicker key='date' {...field} />} />
             <Form.Field label='Pesan' name='message' render={(field) => <Textarea rows={6} {...field} />} />
             <Form.SubmitButton>Kirim Pesan</Form.SubmitButton>
           </Form>
