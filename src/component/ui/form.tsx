@@ -17,7 +17,7 @@ export type FormProps<T extends FieldValues> = Omit<React.FormHTMLAttributes<HTM
 export function Form<T extends FieldValues>({ className, form, onSubmit, ...props }: FormProps<T>) {
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={cn('mx-auto max-w-3xl space-y-4', className)} {...props} />
+      <form onSubmit={form.handleSubmit(onSubmit)} className={cn(className)} {...props} />
     </FormProvider>
   )
 }

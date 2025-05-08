@@ -1,4 +1,12 @@
 import type { Metadata } from 'next'
+import { Plus_Jakarta_Sans } from 'next/font/google'
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 import { ProgressBar, QueryProvider, SessionProvider, ThemeProvider, Toaster } from '@/component'
 
@@ -11,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function AppLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='id' suppressHydrationWarning>
+    <html lang='id' suppressHydrationWarning className={plusJakartaSans.className}>
       <body>
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
           <SessionProvider>

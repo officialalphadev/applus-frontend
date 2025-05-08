@@ -1,13 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 
-import { LoginDefaultValue, LoginSchema, LoginSchemaType } from './schema'
-import { Card, Form, Input } from '@/component'
+import { Form, Input } from '@/component'
 import { useForm } from '@/hook'
+import { LoginDefaultValue, LoginSchema, LoginSchemaType } from './schema'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -37,24 +36,28 @@ export default function LoginPage() {
   }
 
   return (
-    <Card className='w-full max-w-md'>
-      <Card.Header className='space-y-1 text-center'>
-        <Card.Title className='text-2xl font-bold'>Masuk ke akun anda</Card.Title>
-        <Card.Description>Masukkan kredensial anda untuk mengakses akun anda</Card.Description>
-      </Card.Header>
-      <Form form={form} onSubmit={handleSubmit}>
-        <Card.Content className='space-y-4'>
-          {error && <span>{error}</span>}
-          <Form.Field label='Username' name='username' render={(field) => <Input {...field} type='text' required />} />
-          <Form.Field label='Kata Sandi' name='password' render={(field) => <Input {...field} type='password' required />} />
-          <Link href='#' className='text-primary text-sm font-medium hover:underline'>
-            Lupa kata sandi?
-          </Link>
-        </Card.Content>
-        <Card.Footer>
-          <Form.SubmitButton className='w-full'>Masuk</Form.SubmitButton>
-        </Card.Footer>
-      </Form>
-    </Card>
+    <>
+      <div className='hidden w-1/2 items-center justify-center rounded-md bg-neutral-900 lg:flex'>
+        <span className='text-3xl font-bold text-white'>Dinas Pendidikan</span>
+      </div>
+      <div className='flex w-full flex-col items-center justify-center gap-10 lg:w-1/2'>
+        <div className='flex flex-col gap-2'>
+          <h1 className='text-2xl font-semibold text-neutral-900'>Masuk ke Akun Kamu</h1>
+          <p className='text-base font-normal text-neutral-700'>
+            Silakan masuk dengan email dan kata sandi yang telah terdaftar. Jika belum punya akun, hubungi admin untuk dibuatkan.
+          </p>
+        </div>
+        <Form form={form} onSubmit={handleSubmit} className='flex w-full flex-col gap-10'>
+          <div className='flex w-full flex-col gap-6'>
+            {error && <span>{error}</span>}
+            <Form.Field label='Username' name='username' render={(field) => <Input {...field} type='text' required className='w-full' />} />
+            <Form.Field label='Kata Sandi' name='password' render={(field) => <Input {...field} type='password' required />} />
+          </div>
+          <div className='flex w-full items-center justify-start'>
+            <Form.SubmitButton className='max-w-[150px]'>Masuk</Form.SubmitButton>
+          </div>
+        </Form>
+      </div>
+    </>
   )
 }

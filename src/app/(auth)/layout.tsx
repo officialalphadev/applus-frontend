@@ -1,3 +1,3 @@
 export default function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <div className='mx-auto flex min-h-dvh max-w-6xl flex-col items-center justify-center p-4'>{children}</div>
+  return <div className='flex min-h-screen w-full flex-row gap-10 px-10 py-6'>{children}</div>
 }
