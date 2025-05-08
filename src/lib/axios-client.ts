@@ -1,35 +1,34 @@
-import axiosOriginal from 'axios'
+import axios from 'axios'
+// import { getSession } from 'next-auth/react'
 
-import { Logger } from '@/lib'
+import { getDeviceInfo, Logger } from '@/lib'
 
-const getDeviceInfo = () => {
-  const userAgent = navigator.userAgent
-  const platform = navigator.platform
-  const deviceName = `${platform} - ${userAgent.split('(')[0]}`
-  return { deviceName, platform, userAgent }
-}
-
-export const axios = axiosOriginal.create({
+export const axiosClient = axios.create({
   baseURL: 'https://dummyjson.com',
   timeout: 15000,
   headers: { 'Content-Type': 'application/json' }
 })
 
-axios.interceptors.request.use(
-  (config) => {
+axiosClient.interceptors.request.use(
+  async (config) => {
+    Logger.Trace('client interceptors.request')
+
     const deviceInfo = getDeviceInfo()
     config.headers['X-Device-Name'] = deviceInfo.deviceName
     config.headers['X-Platform'] = deviceInfo.platform
-    const token = localStorage.getItem('auth_token')
-    if (token) config.headers['Authorization'] = `Bearer ${token}`
+
+    // const session = await getSession()
+    // if (session?.accessToken) config.headers['Authorization'] = `Bearer ${session.accessToken}`
+
     return config
   },
   (error) => Promise.reject(error)
 )
 
-axios.interceptors.response.use(
+axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    Logger.Trace('interceptors.response')
     const { response } = error
     if (response && response.status === 401) Logger.Error('Unauthorized access, redirecting to login')
     if (!response) Logger.Error('Network error - please check your connection')

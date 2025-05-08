@@ -48,7 +48,7 @@ export const authOptionsConfig: NextAuthOptions = {
       }
     })
   ],
-  pages: { signIn: '/auth/login', error: '/auth/error' },
+  pages: { signIn: '/login', error: '/error' },
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.user = user

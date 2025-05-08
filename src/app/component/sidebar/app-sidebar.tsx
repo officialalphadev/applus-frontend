@@ -33,86 +33,86 @@ const data = {
   navMain: [
     {
       title: 'Playground',
-      url: '#',
+      url: '/',
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
           title: 'History',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Starred',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Settings',
-          url: '#'
+          url: '/'
         }
       ]
     },
     {
       title: 'Models',
-      url: '#',
+      url: '/',
       icon: Bot,
       items: [
         {
           title: 'Genesis',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Explorer',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Quantum',
-          url: '#'
+          url: '/'
         }
       ]
     },
     {
       title: 'Documentation',
-      url: '#',
+      url: '/',
       icon: BookOpen,
       items: [
         {
           title: 'Introduction',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Get Started',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Tutorials',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Changelog',
-          url: '#'
+          url: '/'
         }
       ]
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/',
       icon: Settings2,
       items: [
         {
           title: 'General',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Team',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Billing',
-          url: '#'
+          url: '/'
         },
         {
           title: 'Limits',
-          url: '#'
+          url: '/'
         }
       ]
     }
@@ -120,17 +120,17 @@ const data = {
   projects: [
     {
       name: 'Design Engineering',
-      url: '#',
+      url: '/',
       icon: Frame
     },
     {
       name: 'Sales & Marketing',
-      url: '#',
+      url: '/',
       icon: PieChart
     },
     {
       name: 'Travel',
-      url: '#',
+      url: '/',
       icon: Map
     }
   ]

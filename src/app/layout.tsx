@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ProgressBar, QueryProvider, SessionProvider, ThemeProvider, Toaster } from '@/component'
+
 import '@/style/global.css'
 
 export const metadata: Metadata = {
