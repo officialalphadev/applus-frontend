@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-react'
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 
-import { Button, DropdownMenu, Input, Select, Table } from '@/component'
+import { Button, ConfirmDeleteModal, DropdownMenu, Input, Select, Table } from '@/component'
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -34,7 +34,11 @@ export function DataTable<TData, TValue>(props: Readonly<DataTableProps<TData, T
           <DropdownMenu.Content align='end'>
             {onViewRow && <DropdownMenu.Item onClick={() => onViewRow(row.original)}>View</DropdownMenu.Item>}
             {onEditRow && <DropdownMenu.Item onClick={() => onEditRow(row.original)}>Edit</DropdownMenu.Item>}
-            {onDeleteRow && <DropdownMenu.Item onClick={() => onDeleteRow(row.original)}>Delete</DropdownMenu.Item>}
+            {onDeleteRow && (
+              <ConfirmDeleteModal onConfirm={() => onDeleteRow(row.original)}>
+                <DropdownMenu.Item onSelect={(event) => event.preventDefault()}>Delete</DropdownMenu.Item>
+              </ConfirmDeleteModal>
+            )}
           </DropdownMenu.Content>
         </DropdownMenu>
       )

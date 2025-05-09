@@ -1,9 +1,12 @@
 'use client'
 
+import Link from 'next/link'
 import { PlusIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 import { Button, DataTable } from '@/component'
 import { UserColumn } from './column'
+import { Logger } from '@/lib'
 
 const users = [
   {
@@ -79,6 +82,8 @@ const users = [
 ]
 
 export default function KelolaPengguna() {
+  const router = useRouter()
+
   return (
     <div className='space-y-8'>
       <div className='flex items-end gap-4'>
@@ -86,16 +91,17 @@ export default function KelolaPengguna() {
           <h1 className='text-2xl font-bold'>Kelola Pengguna</h1>
           <p className='text-base font-medium'>Lihat dan kelola pengguna serta tim dalam organisasi Anda</p>
         </div>
-        <Button>
-          <PlusIcon /> Tambah Pegguna
-        </Button>
+        <Link href='/manajemen/kelola-pengguna/tambah-pengguna'>
+          <Button>
+            <PlusIcon /> Tambah Pegguna
+          </Button>
+        </Link>
       </div>
       <DataTable
         data={users}
         columns={UserColumn}
-        onViewRow={() => alert('view')}
-        onEditRow={() => alert('edit')}
-        onDeleteRow={() => alert('delete')}
+        onEditRow={(user) => router.push('/manajemen/kelola-pengguna/edit-pengguna?id=' + user.email)}
+        onDeleteRow={() => Logger.Trace('delete row')}
         onSearch={() => {}}
       />
     </div>

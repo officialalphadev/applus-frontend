@@ -10,9 +10,10 @@ export interface ComboboxProps {
   value?: string
   onChange?: (event: { target: { value: string } }) => void
   options?: { id: string; label: string }[]
+  placeholder?: string
 }
 
-export function Combobox({ value: parentValue = '', onChange, options = [] }: Readonly<ComboboxProps>) {
+export function Combobox({ value: parentValue = '', onChange, options = [], placeholder = 'Pilih...' }: Readonly<ComboboxProps>) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
 
@@ -23,8 +24,8 @@ export function Combobox({ value: parentValue = '', onChange, options = [] }: Re
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
-        <Button variant='outline' className='w-full justify-between'>
-          {value ? options.find((option) => option.id === value)?.label : 'Select...'}
+        <Button variant='outline' className={cn('w-full justify-between', !value && 'text-muted-foreground')}>
+          {value ? options.find((option) => option.id === value)?.label : placeholder}
           <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </Popover.Trigger>
