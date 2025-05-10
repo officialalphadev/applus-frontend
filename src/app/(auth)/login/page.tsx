@@ -36,7 +36,7 @@ export default function LoginPage() {
   }
 
   return (
-    <>
+    <div className='flex h-full flex-row gap-10 px-10 py-6'>
       <div className='hidden w-1/2 items-center justify-center rounded-md bg-neutral-900 lg:flex'>
         <span className='text-3xl font-bold text-white'>Dinas Pendidikan</span>
       </div>
@@ -58,6 +58,6 @@ export default function LoginPage() {
           </div>
         </Form>
       </div>
-    </>
+    </div>
   )
 }
