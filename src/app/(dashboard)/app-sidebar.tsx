@@ -1,11 +1,11 @@
 'use client'
 
+import { BadgeCheck, Bell, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOut, Settings2, Sparkles, Archive, Building, Calendar } from 'lucide-react'
 import Link from 'next/link'
-import { BadgeCheck, Bell, BookOpen, Bot, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOut, Settings2, Sparkles } from 'lucide-react'
 
 import { Avatar, Collapsible, DropdownMenu, Sidebar, useSidebar } from '@/component'
-import Image from 'next/image'
 import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 
 const data = {
   user: {
@@ -14,41 +14,46 @@ const data = {
     avatar: '/avatars/shadcn.jpg'
   },
   menus: [
-    { title: 'Beranda', url: '/', icon: Home },
+    {
+      title: 'Beranda',
+      url: '/',
+
+      icon: <Home className='!size-5' />
+    },
     {
       title: 'Manajemen',
-      icon: Bot,
+      icon: <Settings2 className='!size-5' />,
       items: [
         { title: 'Kelola Pengguna', url: '/manajemen/kelola-pengguna' },
         { title: 'Kelola Role', url: '/manajemen/kelola-role' }
       ]
     },
-    {
-      title: 'Kepegawaian',
-      url: '/',
-      icon: BookOpen,
-      items: [
-        { title: 'Introduction', url: '/' },
-        { title: 'Get Started', url: '/' },
-        { title: 'Tutorials', url: '/' },
-        { title: 'Changelog', url: '/' }
-      ]
-    },
-    {
-      title: 'Kurikulum',
-      url: '/',
-      icon: Settings2,
-      items: [
-        { title: 'General', url: '/' },
-        { title: 'Team', url: '/' },
-        { title: 'Billing', url: '/' },
-        { title: 'Limits', url: '/' }
-      ]
-    },
+    // {
+    //   title: 'Kepegawaian',
+    //   url: '/',
+    //   icon: BookOpen,
+    //   items: [
+    //     { title: 'Introduction', url: '/' },
+    //     { title: 'Get Started', url: '/' },
+    //     { title: 'Tutorials', url: '/' },
+    //     { title: 'Changelog', url: '/' }
+    //   ]
+    // },
+    // {
+    //   title: 'Kurikulum',
+    //   url: '/',
+    //   icon: Settings2,
+    //   items: [
+    //     { title: 'General', url: '/' },
+    //     { title: 'Team', url: '/' },
+    //     { title: 'Billing', url: '/' },
+    //     { title: 'Limits', url: '/' }
+    //   ]
+    // },
     {
       title: 'Sarana Prasarana',
       url: '/',
-      icon: Settings2,
+      icon: <Building className='!size-5' />,
       items: [
         { title: 'General', url: '/' },
         { title: 'Team', url: '/' },
@@ -59,7 +64,7 @@ const data = {
     {
       title: 'E-Arsip',
       url: '/',
-      icon: Settings2,
+      icon: <Archive className='!size-5' />,
       items: [
         { title: 'General', url: '/' },
         { title: 'Team', url: '/' },
@@ -70,7 +75,7 @@ const data = {
     {
       title: 'Humas',
       url: '/',
-      icon: Settings2,
+      icon: <Calendar className='!size-5' />,
       items: [
         { title: 'General', url: '/' },
         { title: 'Team', url: '/' },
@@ -97,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <Sidebar.MenuItem key={title}>
                   <Sidebar.MenuButton asChild>
                     <Link href={url}>
-                      {Icon && <Icon />}
+                      {Icon}
                       <span>{title}</span>
                     </Link>
                   </Sidebar.MenuButton>
@@ -110,7 +115,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <Sidebar.MenuItem>
                   <Collapsible.Trigger asChild>
                     <Sidebar.MenuButton tooltip={title}>
-                      {Icon && <Icon />}
+                      {Icon}
                       <span>{title}</span>
                       <ChevronRight className='ml-auto transition-all duration-300 group-data-[state=open]/collapsible:rotate-90' />
                     </Sidebar.MenuButton>
