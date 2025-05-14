@@ -8,13 +8,13 @@ export function ScrollArea({ className, children, ...props }: React.ComponentPro
   return (
     <Root className={cn('relative overflow-hidden', className)} {...props}>
       <Viewport className='h-full w-full rounded-[inherit]'>{children}</Viewport>
-      <ScrollBar />
+      <ScrollArea.Scrollbar />
       <Corner />
     </Root>
   )
 }
 
-export function ScrollBar({ className, orientation = 'vertical', ...props }: React.ComponentProps<typeof ScrollAreaScrollbar>) {
+ScrollArea.Scrollbar = function ScrollBar({ className, orientation = 'vertical', ...props }: React.ComponentProps<typeof ScrollAreaScrollbar>) {
   return (
     <ScrollAreaScrollbar
       orientation={orientation}

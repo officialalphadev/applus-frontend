@@ -1,10 +1,10 @@
 'use client'
 
+import { Fragment } from 'react'
 import { Bell } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 import { Breadcrumb, Button } from '@/component'
-import { Fragment } from 'react'
 
 export default function Header() {
   const pathname = usePathname()
@@ -25,11 +25,10 @@ export default function Header() {
       <div className='flex w-full items-center gap-2 px-4'>
         <Breadcrumb>
           <Breadcrumb.List>
+            {pathname === '/' && <Breadcrumb.Item>Beranda</Breadcrumb.Item>}
             {breadcrumbs.map((breadcrumb, index) => (
               <Fragment key={breadcrumb}>
-                <Breadcrumb.Item key={breadcrumb}>
-                  <Breadcrumb.Link href='/'>{breadcrumb}</Breadcrumb.Link>
-                </Breadcrumb.Item>
+                <Breadcrumb.Item key={breadcrumb}>{breadcrumb}</Breadcrumb.Item>
                 {index < breadcrumbs.length - 1 && <Breadcrumb.Separator />}
               </Fragment>
             ))}

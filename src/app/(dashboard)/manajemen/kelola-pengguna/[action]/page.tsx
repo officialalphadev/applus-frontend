@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 
 import { TambahPenggunaDefaultValue, TambahPenggunaSchema, TambahPenggunaType } from './schema'
-import { Button, Card, Combobox, Form, Input } from '@/component'
-import { useForm, useSearchParams } from '@/hook'
+import { Button, Card, Combobox, Form, Input, SelectModal } from '@/component'
+import { useForm, useProducts, useSearchParams } from '@/hook'
 import { Logger } from '@/lib'
 
 const JABATAN_OPTIONS = [
@@ -32,13 +32,13 @@ const UNIT_OPTIONS = [
   { id: '5', label: 'Unit 5' }
 ]
 
-const ROLE_OPTIONS = [
-  { id: '1', label: 'Role 1' },
-  { id: '2', label: 'Role 2' },
-  { id: '3', label: 'Role 3' },
-  { id: '4', label: 'Role 4' },
-  { id: '5', label: 'Role 5' }
-]
+// const ROLE_OPTIONS = [
+//   { id: '1', label: 'Role 1' },
+//   { id: '2', label: 'Role 2' },
+//   { id: '3', label: 'Role 3' },
+//   { id: '4', label: 'Role 4' },
+//   { id: '5', label: 'Role 5' }
+// ]
 
 export default function TambahPengguna() {
   const { searchParams } = useSearchParams()
@@ -49,6 +49,8 @@ export default function TambahPengguna() {
     defaultValues: TambahPenggunaDefaultValue,
     schema: TambahPenggunaSchema
   })
+
+  const { data } = useProducts({ limit: 10, skip: 0 })
 
   async function handleSubmit(payload: TambahPenggunaType) {
     Logger.Trace(payload)
@@ -91,7 +93,20 @@ export default function TambahPengguna() {
             name='unitId'
             render={(field) => <Combobox options={UNIT_OPTIONS} placeholder='Pilih unit / lokasi kerja disini' {...field} />}
           />
-          <Form.Field label='Role' name='unitId' render={(field) => <Combobox options={ROLE_OPTIONS} placeholder='Pilih role disini' {...field} />} />
+          {/* <Form.Field label='Role' name='unitId' render={(field) => <Combobox options={ROLE_OPTIONS} placeholder='Pilih role disini' {...field} />} /> */}
+          <Form.Field
+            label='Role'
+            name='roleId'
+            render={(field) => (
+              <SelectModal
+                placeholder='Pilih role disini'
+                data={data?.products || []}
+                optionLabel={(product) => product.title}
+                optionValue={(product) => String(product.id)}
+                {...field}
+              />
+            )}
+          />
         </Card.Content>
         <Card.Footer className='flex justify-end gap-4'>
           <Link href='/manajemen/kelola-pengguna'>
