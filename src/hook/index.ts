@@ -6,3 +6,4 @@ export * from './use-search-params'
 export * from './use-toast'
 // Services
 export * from './useProducts'
+export * from './use-profile'
