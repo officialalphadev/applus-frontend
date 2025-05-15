@@ -1,38 +1,19 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
-
 import { Form, Input } from '@/component'
 import { useForm } from '@/hook'
 import { LoginDefaultValue, LoginSchema, LoginSchemaType } from './schema'
+import { AuthService } from '@/service'
 
 export default function LoginPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/'
-
-  const [error, setError] = useState('')
-
   const form = useForm<LoginSchemaType>({
     defaultValues: LoginDefaultValue,
     schema: LoginSchema
   })
 
   async function handleSubmit(payload: LoginSchemaType) {
-    const response = await signIn('credentials', {
-      username: payload.username,
-      password: payload.password,
-      redirect: false
-    })
-
-    if (response?.error) {
-      setError(response.error)
-      return
-    }
-
-    router.replace(callbackUrl)
+    const response = await AuthService.SignIn(payload)
+    if (response.statusCode === 201) document.location.reload()
   }
 
   return (
@@ -49,8 +30,7 @@ export default function LoginPage() {
         </div>
         <Form form={form} onSubmit={handleSubmit} className='flex w-full flex-col gap-10'>
           <div className='flex w-full flex-col gap-6'>
-            {error && <span>{error}</span>}
-            <Form.Field label='Username' name='username' render={(field) => <Input {...field} type='text' required className='w-full' />} />
+            <Form.Field label='Email' name='emailAddress' render={(field) => <Input {...field} type='email' className='w-full' required />} />
             <Form.Field label='Kata Sandi' name='password' render={(field) => <Input {...field} type='password' required />} />
           </div>
           <div className='flex w-full items-center justify-start'>

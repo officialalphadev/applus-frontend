@@ -4,10 +4,12 @@ import { BadgeCheck, Bell, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOu
 import Link from 'next/link'
 
 import { Avatar, Collapsible, DropdownMenu, Sidebar, useSidebar } from '@/component'
-import { signOut } from 'next-auth/react'
+// import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { AuthService } from '@/service'
+import { useMyProfile } from '@/hook'
 
 const data = {
   user: {
@@ -98,6 +100,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return items.some((item) => pathname.startsWith(item.url))
   }
 
+  const { data: myProfile } = useMyProfile()
+
   return (
     <Sidebar collapsible='icon' {...props}>
       <Sidebar.Header className='border-b'>
@@ -160,7 +164,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </Avatar>
                   <div className='grid flex-1 text-left text-sm leading-tight'>
                     <span className='truncate font-semibold'>{session.data?.user?.name}</span>
-                    <span className='truncate text-xs'>{session.data?.user?.email}</span>
+                    <span className='truncate text-xs'>{myProfile?.data.emailAddress}</span>
                   </div>
                   <ChevronsUpDown className='ml-auto size-4' />
                 </Sidebar.MenuButton>
@@ -179,7 +183,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Avatar>
                     <div className='grid flex-1 text-left text-sm leading-tight'>
                       <span className='truncate font-semibold'>{session.data?.user?.name}</span>
-                      <span className='truncate text-xs'>{session.data?.user?.email}</span>
+                      <span className='truncate text-xs'>{myProfile?.data.emailAddress}</span>
                     </div>
                   </div>
                 </DropdownMenu.Label>
@@ -206,7 +210,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </DropdownMenu.Item>
                 </DropdownMenu.Group>
                 <DropdownMenu.Separator />
-                <DropdownMenu.Item onClick={() => signOut()}>
+                <DropdownMenu.Item
+                  onClick={async () => {
+                    const response = await AuthService.SignOut()
+                    if (response.statusCode === 200) document.location.reload()
+                  }}
+                >
                   <LogOut />
                   Log out
                 </DropdownMenu.Item>
