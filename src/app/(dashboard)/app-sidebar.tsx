@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { Avatar, Collapsible, DropdownMenu, Sidebar, useSidebar } from '@/component'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 const data = {
   user: {
@@ -52,35 +54,35 @@ const data = {
     // },
     {
       title: 'Sarana Prasarana',
-      url: '/',
+      // url: '/',
       icon: <Building className='!size-5' />,
       items: [
-        { title: 'General', url: '/' },
-        { title: 'Team', url: '/' },
-        { title: 'Billing', url: '/' },
-        { title: 'Limits', url: '/' }
+        { title: 'General', url: '/saranaprasarana/general' },
+        { title: 'Team', url: '/saranaprasarana/team' },
+        { title: 'Billing', url: '/saranaprasarana/billing' },
+        { title: 'Limits', url: '/saranaprasarana/limits' }
       ]
     },
     {
       title: 'E-Arsip',
-      url: '/',
+      // url: '/',
       icon: <Archive className='!size-5' />,
       items: [
-        { title: 'General', url: '/' },
-        { title: 'Team', url: '/' },
-        { title: 'Billing', url: '/' },
-        { title: 'Limits', url: '/' }
+        { title: 'General', url: '/earsip/general' },
+        { title: 'Team', url: '/earsip/team' },
+        { title: 'Billing', url: '/earsip/billing' },
+        { title: 'Limits', url: '/earsip/limits' }
       ]
     },
     {
       title: 'Humas',
-      url: '/',
+      // url: '/',
       icon: <Calendar className='!size-5' />,
       items: [
-        { title: 'General', url: '/' },
-        { title: 'Team', url: '/' },
-        { title: 'Billing', url: '/' },
-        { title: 'Limits', url: '/' }
+        { title: 'General', url: '/humas/general' },
+        { title: 'Team', url: '/humas/team' },
+        { title: 'Billing', url: '/humas/billing' },
+        { title: 'Limits', url: '/humas/limits' }
       ]
     }
   ]
@@ -88,6 +90,13 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { isMobile } = useSidebar()
+  const session = useSession()
+  const pathname = usePathname()
+  console.log('searchParams', pathname)
+  const isParentActive = (items?: { url: string }[]) => {
+    if (!items) return false
+    return items.some((item) => pathname.startsWith(item.url))
+  }
 
   return (
     <Sidebar collapsible='icon' {...props}>
@@ -100,7 +109,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             if (!items) {
               return (
                 <Sidebar.MenuItem key={title}>
-                  <Sidebar.MenuButton asChild>
+                  <Sidebar.MenuButton isActive={pathname === url} asChild>
                     <Link href={url}>
                       {Icon}
                       <span>{title}</span>
@@ -114,7 +123,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Collapsible key={title} asChild className='group/collapsible'>
                 <Sidebar.MenuItem>
                   <Collapsible.Trigger asChild>
-                    <Sidebar.MenuButton tooltip={title}>
+                    <Sidebar.MenuButton isActive={isParentActive(items)} tooltip={title}>
                       {Icon}
                       <span>{title}</span>
                       <ChevronRight className='ml-auto transition-all duration-300 group-data-[state=open]/collapsible:rotate-90' />
@@ -124,7 +133,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <Sidebar.MenuSub>
                       {items?.map((subItem) => (
                         <Sidebar.MenuSubItem key={subItem.title}>
-                          <Sidebar.MenuSubButton asChild>
+                          <Sidebar.MenuSubButton isActive={pathname === subItem.url} asChild>
                             <Link href={subItem.url}>
                               <span>{subItem.title}</span>
                             </Link>
@@ -146,12 +155,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <DropdownMenu.Trigger asChild>
                 <Sidebar.MenuButton size='lg' className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
                   <Avatar className='h-8 w-8 rounded-lg'>
-                    <Avatar.Image src={data.user.avatar} alt={data.user.name} />
+                    {session.data && <Avatar.Image src={session.data?.user?.image as string} alt={session.data?.user?.name ?? 'dinas pendidikan'} />}
                     <Avatar.Fallback className='rounded-lg'>CN</Avatar.Fallback>
                   </Avatar>
                   <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-semibold'>{data.user.name}</span>
-                    <span className='truncate text-xs'>{data.user.email}</span>
+                    <span className='truncate font-semibold'>{session.data?.user?.name}</span>
+                    <span className='truncate text-xs'>{session.data?.user?.email}</span>
                   </div>
                   <ChevronsUpDown className='ml-auto size-4' />
                 </Sidebar.MenuButton>
@@ -165,12 +174,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <DropdownMenu.Label className='p-0 font-normal'>
                   <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                     <Avatar className='h-8 w-8 rounded-lg'>
-                      <Avatar.Image src={data.user.avatar} alt={data.user.name} />
+                      {session.data && <Avatar.Image src={session.data?.user?.image as string} alt={session.data?.user?.name ?? 'dinas pendidikan'} />}
                       <Avatar.Fallback className='rounded-lg'>CN</Avatar.Fallback>
                     </Avatar>
                     <div className='grid flex-1 text-left text-sm leading-tight'>
-                      <span className='truncate font-semibold'>{data.user.name}</span>
-                      <span className='truncate text-xs'>{data.user.email}</span>
+                      <span className='truncate font-semibold'>{session.data?.user?.name}</span>
+                      <span className='truncate text-xs'>{session.data?.user?.email}</span>
                     </div>
                   </div>
                 </DropdownMenu.Label>

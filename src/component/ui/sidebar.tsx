@@ -484,7 +484,7 @@ Sidebar.MenuSubButton = function SidebarMenuSubButton({
       data-active={isActive}
       className={cn(
         'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-brand-500 active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex h-[52px] min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md p-4 outline-none hover:font-semibold focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
-        'data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground',
+        'data-[active=true]:text-sidebar-accent-foreground data-[active=true]:font-medium',
         size === 'sm' && 'text-xs',
         size === 'md' && 'text-sm',
         'group-data-[collapsible=icon]:hidden',
