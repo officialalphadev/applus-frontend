@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
+// import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { LoginDefaultValue, LoginSchema, TLoginSchema } from './schema'
@@ -14,7 +13,7 @@ export function LoginForm() {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') ?? '/dashboard'
 
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
 
   const form = useForm<TLoginSchema>({
     defaultValues: LoginDefaultValue,
@@ -22,16 +21,18 @@ export function LoginForm() {
   })
 
   async function handleSubmit(payload: TLoginSchema) {
-    const response = await signIn('credentials', {
-      username: payload.username,
-      password: payload.password,
-      redirect: false
-    })
+    // const response = await signIn('credentials', {
+    //   username: payload.username,
+    //   password: payload.password,
+    //   redirect: false
+    // })
 
-    if (response?.error) {
-      setError(response.error)
-      return
-    }
+    // if (response?.error) {
+    //   setError(response.error)
+    //   return
+    // }
+
+    console.log('DATA', payload)
 
     router.replace(callbackUrl)
   }
@@ -45,7 +46,7 @@ export function LoginForm() {
         </Card.Header>
         <Form form={form} onSubmit={handleSubmit}>
           <Card.Content className='space-y-4'>
-            {error && <span>{error}</span>}
+            {/* {error && <span>{error}</span>} */}
             <Form.Field label='Username' name='username' render={(field) => <Input {...field} type='text' required />} />
             <Form.Field label='Password' name='password' render={(field) => <Input {...field} type='password' required />} />
             <Link href='#' className='text-primary text-sm font-medium hover:underline'>

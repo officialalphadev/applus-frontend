@@ -1,13 +1,11 @@
 'use client'
 
-import { BadgeCheck, Bell, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOut, Settings2, Sparkles, Archive, Building, Calendar } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { BadgeCheck, Bell, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOut, Settings2, Sparkles, Archive, Building, Calendar } from 'lucide-react'
 
 import { Avatar, Collapsible, DropdownMenu, Sidebar, useSidebar } from '@/component'
-// import { signOut } from 'next-auth/react'
-import Image from 'next/image'
-import { useSession } from 'next-auth/react'
-import { usePathname } from 'next/navigation'
 import { AuthService } from '@/service'
 import { useMyProfile } from '@/hook'
 
@@ -91,16 +89,19 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: myProfile } = useMyProfile()
   const { isMobile } = useSidebar()
-  const session = useSession()
   const pathname = usePathname()
-  console.log('searchParams', pathname)
-  const isParentActive = (items?: { url: string }[]) => {
+
+  function isParentActive(items?: { url: string }[]) {
     if (!items) return false
     return items.some((item) => pathname.startsWith(item.url))
   }
 
-  const { data: myProfile } = useMyProfile()
+  async function handleSignOut() {
+    const response = await AuthService.SignOut()
+    if (response.statusCode === 200) document.location.reload()
+  }
 
   return (
     <Sidebar collapsible='icon' {...props}>
@@ -159,11 +160,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <DropdownMenu.Trigger asChild>
                 <Sidebar.MenuButton size='lg' className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
                   <Avatar className='h-8 w-8 rounded-lg'>
-                    {session.data && <Avatar.Image src={session.data?.user?.image as string} alt={session.data?.user?.name ?? 'dinas pendidikan'} />}
+                    {/* {session.data && <Avatar.Image src={session.data?.user?.image as string} alt={session.data?.user?.name ?? 'dinas pendidikan'} />} */}
                     <Avatar.Fallback className='rounded-lg'>CN</Avatar.Fallback>
                   </Avatar>
                   <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-semibold'>{session.data?.user?.name}</span>
+                    {/* <span className='truncate font-semibold'>{session.data?.user?.name}</span> */}
                     <span className='truncate text-xs'>{myProfile?.data.emailAddress}</span>
                   </div>
                   <ChevronsUpDown className='ml-auto size-4' />
@@ -178,11 +179,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <DropdownMenu.Label className='p-0 font-normal'>
                   <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                     <Avatar className='h-8 w-8 rounded-lg'>
-                      {session.data && <Avatar.Image src={session.data?.user?.image as string} alt={session.data?.user?.name ?? 'dinas pendidikan'} />}
+                      {/* {session.data && <Avatar.Image src={session.data?.user?.image as string} alt={session.data?.user?.name ?? 'dinas pendidikan'} />} */}
                       <Avatar.Fallback className='rounded-lg'>CN</Avatar.Fallback>
                     </Avatar>
                     <div className='grid flex-1 text-left text-sm leading-tight'>
-                      <span className='truncate font-semibold'>{session.data?.user?.name}</span>
+                      {/* <span className='truncate font-semibold'>{session.data?.user?.name}</span> */}
                       <span className='truncate text-xs'>{myProfile?.data.emailAddress}</span>
                     </div>
                   </div>
@@ -210,12 +211,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </DropdownMenu.Item>
                 </DropdownMenu.Group>
                 <DropdownMenu.Separator />
-                <DropdownMenu.Item
-                  onClick={async () => {
-                    const response = await AuthService.SignOut()
-                    if (response.statusCode === 200) document.location.reload()
-                  }}
-                >
+                <DropdownMenu.Item onClick={handleSignOut}>
                   <LogOut />
                   Log out
                 </DropdownMenu.Item>

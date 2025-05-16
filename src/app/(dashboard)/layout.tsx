@@ -1,29 +1,17 @@
 'use client'
 
-// import { cookies } from 'next/headers'
-// import { redirect } from 'next/navigation'
-// import { getServerSession } from 'next-auth'
+import Image from 'next/image'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { AppSidebar } from '@/app/(dashboard)/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/component'
 import Header from '@/app/(dashboard)/header'
 import { useMyProfile } from '@/hook'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-// import { authOptionsConfig } from '@/config'
 
 export default function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  // const cookieStore = await cookies()
-  // const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true'
-
-  // const session = await getServerSession(authOptionsConfig)
-
-  // if (!session) redirect('/login?callbackUrl=/')
-
-  const router = useRouter()
-
   const { data: myProfile, isRefetching, isFetched } = useMyProfile()
+  const router = useRouter()
 
   useEffect(() => {
     if (isFetched && myProfile?.statusCode !== 200) router.replace('/login')

@@ -8,7 +8,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: 'swap'
 })
 
-import { ProgressBar, QueryProvider, SessionProvider, ThemeProvider, Toaster } from '@/component'
+import { ProgressBar, QueryProvider, ThemeProvider, Toaster } from '@/component'
 
 import '@/style/global.css'
 
@@ -22,13 +22,11 @@ export default function AppLayout({ children }: Readonly<{ children: React.React
     <html lang='id' suppressHydrationWarning className={plusJakartaSans.className}>
       <body>
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
-          <SessionProvider>
-            <QueryProvider>
-              {children}
-              <Toaster />
-              <ProgressBar />
-            </QueryProvider>
-          </SessionProvider>
+          <QueryProvider>
+            {children}
+            <Toaster />
+            <ProgressBar />
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

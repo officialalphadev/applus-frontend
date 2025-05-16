@@ -5,7 +5,6 @@ export * from './hooks/use-mobile'
 export * from './modal/confirm-delete-modal'
 
 export * from './provider/query-provider'
-export * from './provider/session-provider'
 export * from './provider/theme-provider'
 
 export * from './ui/animate'
