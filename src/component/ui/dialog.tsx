@@ -1,10 +1,10 @@
 'use client'
 
-import { X } from 'lucide-react'
+import React from 'react'
 import { Root, Trigger, Portal, Close, Overlay, Content, Title, Description } from '@radix-ui/react-dialog'
 
+import { Icon } from '@/component'
 import { cn } from '@/lib'
-import React from 'react'
 
 Dialog.Trigger = Trigger
 Dialog.Portal = Portal
@@ -51,7 +51,7 @@ Dialog.Content = function DialogContent({ className, children, ...props }: Reado
             'hover:opacity-100 disabled:pointer-events-none'
           )}
         >
-          <X className='size-4' />
+          <Icon name='x' className='size-4' />
           <span className='sr-only'>Close</span>
         </Dialog.Close>
       </Content>

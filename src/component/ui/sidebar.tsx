@@ -1,11 +1,10 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { PanelLeft } from 'lucide-react'
 import { Slot } from '@radix-ui/react-slot'
 import { VariantProps, cva } from 'class-variance-authority'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
-import { Tooltip, Input, Button, Sheet, Skeleton, Separator } from '@/component'
+import { Tooltip, Input, Button, Sheet, Skeleton, Separator, Icon } from '@/component'
 import { useMobile } from '@/hook'
 import { cn } from '@/lib'
 
@@ -200,7 +199,7 @@ export function SidebarTrigger({ className, onClick, ...props }: React.Component
       onClick={(event) => (onClick?.(event), toggleSidebar())}
       {...props}
     >
-      <PanelLeft />
+      <Icon name='panel-left' />
       <span className='sr-only'>Toggle Sidebar</span>
     </Button>
   )

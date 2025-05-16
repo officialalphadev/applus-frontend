@@ -1,10 +1,9 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-react'
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 
-import { Button, ConfirmDeleteModal, DropdownMenu, Input, Select, Table } from '@/component'
+import { Button, ConfirmDeleteModal, DropdownMenu, Icon, Input, Select, Table } from '@/component'
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -28,7 +27,7 @@ export function DataTable<TData, TValue>(props: Readonly<DataTableProps<TData, T
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
             <Button variant='ghost' className='h-8 w-8 p-0'>
-              <MoreHorizontal className='h-4 w-4' />
+              <Icon name='more-horizontal' className='h-4 w-4' />
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content align='end'>
@@ -123,15 +122,15 @@ export function DataTable<TData, TValue>(props: Readonly<DataTableProps<TData, T
             <div className='flex items-center space-x-2'>
               <Button variant='outline' className='hidden h-8 w-8 p-0 lg:flex' onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
                 <span className='sr-only'>Go to first page</span>
-                <ChevronsLeft />
+                <Icon name='chevrons-left' />
               </Button>
               <Button variant='outline' className='h-8 w-8 p-0' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                 <span className='sr-only'>Go to previous page</span>
-                <ChevronLeft />
+                <Icon name='chevron-left' />
               </Button>
               <Button variant='outline' className='h-8 w-8 p-0' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                 <span className='sr-only'>Go to next page</span>
-                <ChevronRight />
+                <Icon name='chevron-right' />
               </Button>
               <Button
                 variant='outline'
@@ -140,7 +139,7 @@ export function DataTable<TData, TValue>(props: Readonly<DataTableProps<TData, T
                 disabled={!table.getCanNextPage()}
               >
                 <span className='sr-only'>Go to last page</span>
-                <ChevronsRight />
+                <Icon name='chevrons-right' />
               </Button>
             </div>
           </div>

@@ -1,10 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { PlusIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-import { Button, DataTable } from '@/component'
+import { Button, DataTable, Icon } from '@/component'
 import { UserColumn } from './column'
 import { Logger } from '@/lib'
 
@@ -93,7 +92,7 @@ export default function KelolaPengguna() {
         </div>
         <Link href='/manajemen/kelola-pengguna/tambah-pengguna'>
           <Button>
-            <PlusIcon /> Tambah Pegguna
+            <Icon name='plus' /> Tambah Pegguna
           </Button>
         </Link>
       </div>

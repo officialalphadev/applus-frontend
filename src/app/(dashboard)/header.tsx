@@ -1,10 +1,9 @@
 'use client'
 
 import { Fragment } from 'react'
-import { Bell } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
-import { Breadcrumb, Button } from '@/component'
+import { Breadcrumb, Button, Icon } from '@/component'
 
 export default function Header() {
   const pathname = usePathname()
@@ -21,7 +20,7 @@ export default function Header() {
     )
 
   return (
-    <header className='sticky top-0 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-white transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
+    <header className='sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-white transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
       <div className='flex w-full items-center gap-2 px-4'>
         <Breadcrumb>
           <Breadcrumb.List>
@@ -35,7 +34,7 @@ export default function Header() {
           </Breadcrumb.List>
         </Breadcrumb>
         <Button size='icon' variant='ghost' className='ml-auto'>
-          <Bell className='size-4' />
+          <Icon name='bell' className='size-4' />
         </Button>
       </div>
     </header>

@@ -3,9 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { BadgeCheck, Bell, ChevronRight, ChevronsUpDown, CreditCard, Home, LogOut, Settings2, Sparkles, Archive, Building, Calendar } from 'lucide-react'
 
-import { Avatar, Collapsible, DropdownMenu, Sidebar, useSidebar } from '@/component'
+import { Avatar, Collapsible, DropdownMenu, Icon, Sidebar, useSidebar } from '@/component'
 import { AuthService } from '@/service'
 import { useMyProfile } from '@/hook'
 
@@ -19,12 +18,11 @@ const data = {
     {
       title: 'Beranda',
       url: '/',
-
-      icon: <Home className='!size-5' />
+      icon: <Icon name='home' className='!size-5' />
     },
     {
       title: 'Manajemen',
-      icon: <Settings2 className='!size-5' />,
+      icon: <Icon name='settings-2' className='!size-5' />,
       items: [
         { title: 'Kelola Pengguna', url: '/manajemen/kelola-pengguna' },
         { title: 'Kelola Role', url: '/manajemen/kelola-role' }
@@ -55,7 +53,7 @@ const data = {
     {
       title: 'Sarana Prasarana',
       // url: '/',
-      icon: <Building className='!size-5' />,
+      icon: <Icon name='building' className='!size-5' />,
       items: [
         { title: 'General', url: '/saranaprasarana/general' },
         { title: 'Team', url: '/saranaprasarana/team' },
@@ -66,7 +64,7 @@ const data = {
     {
       title: 'E-Arsip',
       // url: '/',
-      icon: <Archive className='!size-5' />,
+      icon: <Icon name='archive' className='!size-5' />,
       items: [
         { title: 'General', url: '/earsip/general' },
         { title: 'Team', url: '/earsip/team' },
@@ -77,7 +75,7 @@ const data = {
     {
       title: 'Humas',
       // url: '/',
-      icon: <Calendar className='!size-5' />,
+      icon: <Icon name='calendar' className='!size-5' />,
       items: [
         { title: 'General', url: '/humas/general' },
         { title: 'Team', url: '/humas/team' },
@@ -110,13 +108,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </Sidebar.Header>
       <Sidebar.Content>
         <Sidebar.Menu>
-          {data.menus.map(({ icon: Icon, title, url, items }) => {
+          {data.menus.map(({ icon: IconMenu, title, url, items }) => {
             if (!items) {
               return (
                 <Sidebar.MenuItem key={title}>
                   <Sidebar.MenuButton isActive={pathname === url} asChild>
                     <Link href={url}>
-                      {Icon}
+                      {IconMenu}
                       <span>{title}</span>
                     </Link>
                   </Sidebar.MenuButton>
@@ -129,9 +127,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <Sidebar.MenuItem>
                   <Collapsible.Trigger asChild>
                     <Sidebar.MenuButton isActive={isParentActive(items)} tooltip={title}>
-                      {Icon}
+                      {IconMenu}
                       <span>{title}</span>
-                      <ChevronRight className='ml-auto transition-all duration-300 group-data-[state=open]/collapsible:rotate-90' />
+                      <Icon name='chevron-right' className='ml-auto transition-all duration-300 group-data-[state=open]/collapsible:rotate-90' />
                     </Sidebar.MenuButton>
                   </Collapsible.Trigger>
                   <Collapsible.Content>
@@ -167,7 +165,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {/* <span className='truncate font-semibold'>{session.data?.user?.name}</span> */}
                     <span className='truncate text-xs'>{myProfile?.data.emailAddress}</span>
                   </div>
-                  <ChevronsUpDown className='ml-auto size-4' />
+                  <Icon name='chevrons-up-down' className='ml-auto size-4' />
                 </Sidebar.MenuButton>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content
@@ -191,28 +189,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <DropdownMenu.Separator />
                 <DropdownMenu.Group>
                   <DropdownMenu.Item>
-                    <Sparkles />
+                    <Icon name='sparkles' />
                     Upgrade to Pro
                   </DropdownMenu.Item>
                 </DropdownMenu.Group>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Group>
                   <DropdownMenu.Item>
-                    <BadgeCheck />
+                    <Icon name='badge-check' />
                     Account
                   </DropdownMenu.Item>
                   <DropdownMenu.Item>
-                    <CreditCard />
+                    <Icon name='credit-card' />
                     Billing
                   </DropdownMenu.Item>
                   <DropdownMenu.Item>
-                    <Bell />
+                    <Icon name='bell' />
                     Notifications
                   </DropdownMenu.Item>
                 </DropdownMenu.Group>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item onClick={handleSignOut}>
-                  <LogOut />
+                  <Icon name='log-out' />
                   Log out
                 </DropdownMenu.Item>
               </DropdownMenu.Content>

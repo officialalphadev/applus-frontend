@@ -1,9 +1,9 @@
 'use client'
 
-import { X } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Provider, Viewport, Root, Action, Close, Title, Description } from '@radix-ui/react-toast'
 
+import { Icon } from '@/component'
 import { cn } from '@/lib'
 
 export type ToastActionElement = React.ReactElement<typeof Action>
@@ -73,7 +73,7 @@ Toast.Close = function ToastClose({ className, ...props }: React.ComponentProps<
       )}
       {...props}
     >
-      <X className='size-4' />
+      <Icon name='x' className='size-4' />
     </Close>
   )
 }

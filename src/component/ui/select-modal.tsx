@@ -1,12 +1,9 @@
 'use client'
 
-import { ChevronsUpDown } from 'lucide-react'
-import { Button } from './button'
-import { cn } from '@/lib'
 import { useEffect, useState } from 'react'
-import { Dialog } from './dialog'
-import { ScrollArea } from './scroll-area'
-import { Input } from './input'
+
+import { Button, Dialog, Icon, Input, ScrollArea } from '@/component'
+import { cn } from '@/lib'
 
 interface SelectModalProps<T> {
   value?: string
@@ -29,7 +26,7 @@ export function SelectModal<T>({ onChange, placeholder = 'Pilih...', value: pare
       <Dialog.Trigger asChild>
         <Button variant='outline' className={cn('w-full justify-between', !value && 'text-muted-foreground')}>
           {value ? optionLabel(data.find((option) => optionValue(option) === value)!) : placeholder}
-          <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+          <Icon name='chevrons-up-down' className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </Dialog.Trigger>
       <Dialog.Content className='sm:max-w-xl'>

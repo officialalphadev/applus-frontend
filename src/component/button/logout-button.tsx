@@ -1,9 +1,8 @@
 'use client'
 
-import { LogOut } from 'lucide-react'
-
 import { Button, ButtonProps } from '../ui/button'
 import { AuthService } from '@/service'
+import { Icon } from '../ui/icon'
 
 interface LogoutButtonProps extends ButtonProps {
   showIcon?: boolean
@@ -18,7 +17,7 @@ export function LogoutButton({ showIcon = true, children, ...props }: Readonly<L
 
   return (
     <Button onClick={handleSignOut} variant='outline' {...props}>
-      {showIcon && <LogOut className='mr-2 h-4 w-4' />}
+      {showIcon && <Icon name='log-out' className='mr-2 h-4 w-4' />}
       {children || 'Sign out'}
     </Button>
   )

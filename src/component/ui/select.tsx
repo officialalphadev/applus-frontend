@@ -1,9 +1,9 @@
 'use client'
 
-import { Group, Icon, Root, Trigger, Value, Portal, Content, Viewport, Label, Item, ItemText, Separator } from '@radix-ui/react-select'
 import { ScrollUpButton, ScrollDownButton, ItemIndicator } from '@radix-ui/react-select'
-import { Check, ChevronDown, ChevronUp } from 'lucide-react'
+import { Group, Icon, Root, Trigger, Value, Portal, Content, Viewport, Label, Item, ItemText, Separator } from '@radix-ui/react-select'
 
+import { Icon as DynamicIcon } from '@/component'
 import { cn } from '@/lib'
 
 Select.Group = Group
@@ -26,7 +26,7 @@ Select.Trigger = function SelectTrigger({ className, ...props }: React.Component
       {...props}
     >
       <Icon asChild>
-        <ChevronDown className='h-4 w-4 opacity-50' />
+        <DynamicIcon name='chevron-down' className='h-4 w-4 opacity-50' />
       </Icon>
     </Trigger>
   )
@@ -35,7 +35,7 @@ Select.Trigger = function SelectTrigger({ className, ...props }: React.Component
 Select.ScrollUpButton = function SelectScrollUpButton({ className, ...props }: React.ComponentProps<typeof ScrollUpButton>) {
   return (
     <ScrollUpButton className={cn('flex cursor-default items-center justify-center py-1', className)} {...props}>
-      <ChevronUp className='h-4 w-4' />
+      <DynamicIcon name='chevron-up' className='h-4 w-4' />
     </ScrollUpButton>
   )
 }
@@ -43,7 +43,7 @@ Select.ScrollUpButton = function SelectScrollUpButton({ className, ...props }: R
 Select.ScrollDownButton = function SelectScrollDownButton({ className, ...props }: React.ComponentProps<typeof ScrollDownButton>) {
   return (
     <ScrollDownButton className={cn('flex cursor-default items-center justify-center py-1', className)} {...props}>
-      <ChevronDown className='h-4 w-4' />
+      <DynamicIcon name='chevron-down' className='h-4 w-4' />
     </ScrollDownButton>
   )
 }
@@ -86,7 +86,7 @@ Select.Item = function SelectItem({ className, children, ...props }: React.Compo
     >
       <span className='absolute right-2 flex h-3.5 w-3.5 items-center justify-center'>
         <ItemIndicator>
-          <Check className='h-4 w-4' />
+          <DynamicIcon name='check' className='h-4 w-4' />
         </ItemIndicator>
       </span>
       <ItemText>{children}</ItemText>

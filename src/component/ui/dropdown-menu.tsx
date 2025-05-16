@@ -1,9 +1,9 @@
 'use client'
 
-import { Check, ChevronRight, Circle } from 'lucide-react'
 import { RadioItem, Root, Separator, Sub, SubContent, SubTrigger, Trigger } from '@radix-ui/react-dropdown-menu'
 import { CheckboxItem, Content, Group, Item, ItemIndicator, Label, Portal, RadioGroup } from '@radix-ui/react-dropdown-menu'
 
+import { Icon } from '@/component'
 import { cn } from '@/lib'
 
 DropdownMenu.Trigger = Trigger
@@ -30,7 +30,7 @@ DropdownMenu.SubTrigger = function DropdownMenuSubTrigger(props: React.Component
       {...rest}
     >
       {children}
-      <ChevronRight className='ml-auto' />
+      <Icon name='chevron-right' className='ml-auto' />
     </SubTrigger>
   )
 }
@@ -101,7 +101,7 @@ DropdownMenu.CheckboxItem = function DropdownMenuCheckboxItem({ className, child
     >
       <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
         <ItemIndicator>
-          <Check className='h-4 w-4' />
+          <Icon name='check' className='h-4 w-4' />
         </ItemIndicator>
       </span>
       {children}
@@ -123,7 +123,7 @@ DropdownMenu.RadioItem = function DropdownMenuRadioItem({ className, children, .
     >
       <span className='absolute left-2 flex h-3.5 w-3.5 items-center justify-center'>
         <ItemIndicator>
-          <Circle className='h-2 w-2 fill-current' />
+          <Icon name='circle' className='h-2 w-2 fill-current' />
         </ItemIndicator>
       </span>
       {children}

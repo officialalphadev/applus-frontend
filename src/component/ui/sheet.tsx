@@ -1,9 +1,9 @@
 'use client'
 
-import { Close, Content, Description, Overlay, Portal, Root, Title, Trigger } from '@radix-ui/react-dialog'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { X } from 'lucide-react'
+import { Close, Content, Description, Overlay, Portal, Root, Title, Trigger } from '@radix-ui/react-dialog'
 
+import { Icon } from '@/component'
 import { cn } from '@/lib'
 
 // const Sheet = SheetPrimitive.Root
@@ -54,7 +54,7 @@ Sheet.Content = function SheetContent({ className, side = 'right', children, ...
       <Overlay />
       <Content className={cn(sheetVariants({ side }), className)} {...props}>
         <Close className='ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none'>
-          <X className='h-4 w-4' />
+          <Icon name='x' className='h-4 w-4' />
           <span className='sr-only'>Close</span>
         </Close>
         {children}

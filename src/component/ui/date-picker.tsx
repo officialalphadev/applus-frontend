@@ -3,9 +3,8 @@
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
 import { useEffect, useState } from 'react'
-import { Calendar as CalendarIcon } from 'lucide-react'
 
-import { Button, Calendar, Popover } from '@/component'
+import { Button, Calendar, Icon, Popover } from '@/component'
 import { cn } from '@/lib'
 
 interface DatePickerProps {
@@ -41,7 +40,7 @@ export function DatePicker({ className, disabled, onChange, placeholder = 'Pilih
           aria-label='Buka pemilih tanggal'
           aria-haspopup='dialog'
         >
-          <CalendarIcon className='mr-2 size-4' />
+          <Icon name='calendar' className='mr-2 size-4' />
           {selectedDate ? format(selectedDate, formatStr, { locale: id }) : <span>{placeholder}</span>}
         </Button>
       </Popover.Trigger>

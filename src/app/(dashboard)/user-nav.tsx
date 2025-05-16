@@ -1,11 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { LogOut, Settings, User } from 'lucide-react'
 
-import { DropdownMenu, Button, Avatar } from '@/component'
-import { useMyProfile } from '@/hook'
+import { DropdownMenu, Button, Avatar, Icon } from '@/component'
 import { AuthService } from '@/service'
+import { useMyProfile } from '@/hook'
 
 export function UserNav() {
   const { data: myProfile } = useMyProfile()
@@ -36,20 +35,20 @@ export function UserNav() {
         <DropdownMenu.Group>
           <DropdownMenu.Item asChild>
             <Link href='/profile'>
-              <User className='mr-2 h-4 w-4' />
+              <Icon name='user' className='mr-2 h-4 w-4' />
               <span>Profile</span>
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Item asChild>
             <Link href='/settings'>
-              <Settings className='mr-2 h-4 w-4' />
+              <Icon name='settings' className='mr-2 h-4 w-4' />
               <span>Settings</span>
             </Link>
           </DropdownMenu.Item>
         </DropdownMenu.Group>
         <DropdownMenu.Separator />
         <DropdownMenu.Item onClick={handleSignOut} className='cursor-pointer'>
-          <LogOut className='mr-2 h-4 w-4' />
+          <Icon name='log-out' className='mr-2 h-4 w-4' />
           <span>Log out</span>
         </DropdownMenu.Item>
       </DropdownMenu.Content>
