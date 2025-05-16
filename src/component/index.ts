@@ -50,3 +50,5 @@ export * from './ui/toaster'
 export * from './ui/tooltip'
 export * from './ui/toggle'
 export * from './ui/toggle-group'
+
+export * from './splash-screen'

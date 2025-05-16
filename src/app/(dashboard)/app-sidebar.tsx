@@ -9,11 +9,6 @@ import { AuthService } from '@/service'
 import { useMyProfile } from '@/hook'
 
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg'
-  },
   menus: [
     {
       title: 'Beranda',
@@ -21,38 +16,18 @@ const data = {
       icon: <Icon name='home' className='!size-5' />
     },
     {
-      title: 'Manajemen',
+      title: 'Manajemen Kepegawaian',
       icon: <Icon name='settings-2' className='!size-5' />,
       items: [
         { title: 'Kelola Pengguna', url: '/manajemen/kelola-pengguna' },
-        { title: 'Kelola Role', url: '/manajemen/kelola-role' }
+        { title: 'Kelola Role', url: '/manajemen/kelola-role' },
+        { title: 'Master Data Jabatan', url: '/manajemen/master-data-jabatan' },
+        { title: 'Data Pegawai', url: '/manajemen/data-pegawai' },
+        { title: 'Kelola Status Pegawai', url: '/manajemen/kelola-status-pegawai' }
       ]
     },
-    // {
-    //   title: 'Kepegawaian',
-    //   url: '/',
-    //   icon: BookOpen,
-    //   items: [
-    //     { title: 'Introduction', url: '/' },
-    //     { title: 'Get Started', url: '/' },
-    //     { title: 'Tutorials', url: '/' },
-    //     { title: 'Changelog', url: '/' }
-    //   ]
-    // },
-    // {
-    //   title: 'Kurikulum',
-    //   url: '/',
-    //   icon: Settings2,
-    //   items: [
-    //     { title: 'General', url: '/' },
-    //     { title: 'Team', url: '/' },
-    //     { title: 'Billing', url: '/' },
-    //     { title: 'Limits', url: '/' }
-    //   ]
-    // },
     {
       title: 'Sarana Prasarana',
-      // url: '/',
       icon: <Icon name='building' className='!size-5' />,
       items: [
         { title: 'General', url: '/saranaprasarana/general' },
@@ -63,7 +38,6 @@ const data = {
     },
     {
       title: 'E-Arsip',
-      // url: '/',
       icon: <Icon name='archive' className='!size-5' />,
       items: [
         { title: 'General', url: '/earsip/general' },
@@ -74,7 +48,6 @@ const data = {
     },
     {
       title: 'Humas',
-      // url: '/',
       icon: <Icon name='calendar' className='!size-5' />,
       items: [
         { title: 'General', url: '/humas/general' },

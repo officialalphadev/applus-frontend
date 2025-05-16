@@ -1,9 +1,9 @@
 'use client'
 
-import { Form, Input } from '@/component'
-import { useForm } from '@/hook'
 import { LoginDefaultValue, LoginSchema, LoginSchemaType } from './schema'
+import { Form, Input } from '@/component'
 import { AuthService } from '@/service'
+import { useForm } from '@/hook'
 
 export default function LoginPage() {
   const form = useForm<LoginSchemaType>({

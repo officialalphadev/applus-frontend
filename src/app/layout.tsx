@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function AppLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='id' suppressHydrationWarning className={plusJakartaSans.className}>
+    <html lang='id' className={plusJakartaSans.className} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute='class' defaultTheme='light' enableSystem disableTransitionOnChange>
           <QueryProvider>

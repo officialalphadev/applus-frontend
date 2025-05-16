@@ -1,87 +1,24 @@
 'use client'
 
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-import { Button, DataTable, Icon } from '@/component'
+import { DataTable, SplashScreen } from '@/component'
 import { UserColumn } from './column'
+import { useUsers } from '@/hook'
 import { Logger } from '@/lib'
 
-const users = [
-  {
-    email: 'kpldisdik@gmail.com',
-    role: 'Super Admin',
-    jabatan: 'Kepala Dinas Pendidikan',
-    jobLevel: 'Eselon IIb',
-    status: 'Active'
-  },
-  {
-    email: 'skrtarisdisdik@gmail.com',
-    role: 'Admin Utama',
-    jabatan: 'Sekertaris Dinas',
-    jobLevel: 'Eselon IIIa',
-    status: 'Active'
-  },
-  {
-    email: 'kabiddisdik@gmail.com',
-    role: 'Manager Bidang',
-    jabatan: 'Kepala Bidang (Kabid)',
-    jobLevel: 'Eselon IIIa/b',
-    status: 'Active'
-  },
-  {
-    email: 'kasidisdik@gmail.com',
-    role: 'Admin',
-    jabatan: 'Kepala Seksi (Kasi)',
-    jobLevel: 'Eselon IVa',
-    status: 'Active'
-  },
-  {
-    email: 'subkrdnator@gmail.com',
-    role: 'Admin Pendukung',
-    jabatan: 'Subkoordinator/Subbagian',
-    jobLevel: 'Eselon IVb',
-    status: 'Active'
-  },
-  {
-    email: 'anlsiskpgwaian@gmail.com',
-    role: 'Admin Kepegawaian',
-    jabatan: 'Analisis Kepegawaian',
-    jobLevel: 'Fungsional Ahli',
-    status: 'Active'
-  },
-  {
-    email: 'prncanadisdik@gmail.com',
-    role: 'Admin Perencanaan',
-    jabatan: 'Perencana',
-    jobLevel: 'Fungsional Ahli',
-    status: 'Active'
-  },
-  {
-    email: 'arsiparis_kom@gmail.com',
-    role: 'Admin Teknis',
-    jabatan: 'Arsiparis, Pranata Komputer, dll',
-    jobLevel: 'Fungsional Terampil',
-    status: 'Active'
-  },
-  {
-    email: 'operatordpdk@gmail.com',
-    role: 'Operator',
-    jabatan: 'Operator Dapodik / Keuangan',
-    jobLevel: 'Pelaksana / Entry Level',
-    status: 'Active'
-  },
-  {
-    email: 'staftu@gmail.com',
-    role: 'Data Entry',
-    jabatan: 'Staf TU / Admin Subbag',
-    jobLevel: 'Entry-level / Non-eselon',
-    status: 'Active'
-  }
-]
-
 export default function KelolaPengguna() {
+  const searchParams = useSearchParams()
+
+  const page = Number(searchParams.get('page') ?? 1)
+  const limit = Number(searchParams.get('limit') ?? 10)
+  const search = searchParams.get('search') ?? ''
+
+  const { data: users, isFetching } = useUsers({ page, limit, search })
+
   const router = useRouter()
+
+  if (isFetching) return <SplashScreen />
 
   return (
     <div className='space-y-8'>
@@ -90,18 +27,20 @@ export default function KelolaPengguna() {
           <h1 className='text-2xl font-bold'>Kelola Pengguna</h1>
           <p className='text-base font-medium'>Lihat dan kelola pengguna serta tim dalam organisasi Anda</p>
         </div>
-        <Link href='/manajemen/kelola-pengguna/tambah-pengguna'>
-          <Button>
-            <Icon name='plus' /> Tambah Pegguna
-          </Button>
-        </Link>
       </div>
       <DataTable
-        data={users}
+        data={users?.data?.rows ?? []}
         columns={UserColumn}
-        onEditRow={(user) => router.push('/manajemen/kelola-pengguna/edit-pengguna?id=' + user.email)}
+        onAddRow={() => router.push('/manajemen/kelola-pengguna/tambah-pengguna')}
+        iconAddRow='user-round-plus'
+        textAddRow='Tambah Pengguna'
+        onViewRow={() => {}}
+        onEditRow={(user) => router.push('/manajemen/kelola-pengguna/edit-pengguna?id=' + user.emailAddress)}
         onDeleteRow={() => Logger.Trace('delete row')}
-        onSearch={() => {}}
+        pagination={users?.data.meta}
+        placeholderSearch='Cari pengguna ...'
+        textButtonSearch='Cari'
+        withSearchParams
       />
     </div>
   )

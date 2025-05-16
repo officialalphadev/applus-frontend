@@ -30,6 +30,7 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     const { response } = error
+    if (response.status === 401 && document.location.pathname !== '/login') document.location.href = '/login'
     if (response) return response
     return Promise.reject(error)
   }

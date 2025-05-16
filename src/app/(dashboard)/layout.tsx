@@ -1,11 +1,10 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+import { SidebarInset, SidebarProvider, SplashScreen } from '@/component'
 import { AppSidebar } from '@/app/(dashboard)/app-sidebar'
-import { SidebarInset, SidebarProvider } from '@/component'
 import Header from '@/app/(dashboard)/header'
 import { useMyProfile } from '@/hook'
 
@@ -17,13 +16,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
     if (isFetched && myProfile?.statusCode !== 200) router.replace('/login')
   }, [myProfile])
 
-  if (isRefetching || myProfile?.statusCode !== 200) {
-    return (
-      <div className='flex h-screen items-center justify-center p-4'>
-        <Image src='/asset/logo-dinas.webp' alt='logo-dinas' className='h-24 w-auto' width={512} height={512} />
-      </div>
-    )
-  }
+  if (isRefetching || myProfile?.statusCode !== 200) return <SplashScreen />
 
   return (
     <SidebarProvider defaultOpen={true}>
